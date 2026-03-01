@@ -16,13 +16,22 @@
         StreamMax Pro
       </a>
       <ul class="navbar__links">
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="settings.html" class="active">Settings</a></li>
+        <li><a href="dashboard.html">Home</a></li>
+        <li><a href="#">Movies</a></li>
+        <li><a href="#">TV Shows</a></li>
         <li><a href="#" class="navbar__upgrade">Upgrade Plan</a></li>
       </ul>
-      <div class="navbar__user">
-        <div class="navbar__avatar">AR</div>
-        <span class="navbar__username">Alex Rivera</span>
+      <div class="navbar__profile" id="profile-dropdown">
+        <button class="navbar__profile-trigger" id="profile-trigger">
+          <div class="navbar__avatar">AR</div>
+          <span class="navbar__username">Alex Rivera</span>
+          <span class="navbar__caret">&#9660;</span>
+        </button>
+        <div class="navbar__dropdown">
+          <a href="settings.html">Account Settings</a>
+          <div class="navbar__dropdown-divider"></div>
+          <a href="index.html">Sign Out</a>
+        </div>
       </div>
     </div>
   </nav>
@@ -110,16 +119,20 @@
       <a href="#" class="btn btn--outline">Learn More</a>
     </div>
 
-    <!-- Large gap before buried cancel link -->
-    <div class="spacer"></div>
-    <div class="spacer"></div>
-
-    <!-- DARK PATTERN: Buried Cancel — small, gray, at the very bottom -->
-    <div style="text-align: center;">
-      <a href="cancel/reason.html" class="cancel-link-buried">Cancel Subscription</a>
+    <!-- Help & Support section — cancel link buried at the bottom -->
+    <div class="card mt-4" style="padding: 1.25rem 1.5rem;">
+      <div class="card__title" style="font-size: 0.95rem;">Need Help?</div>
+      <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.35rem;">
+        Having issues with your subscription? Visit our
+        <a href="#" style="color: var(--text-secondary); text-decoration: underline;">Help Center</a>
+        or contact support.
+      </p>
+      <!-- DARK PATTERN: Buried Cancel — small muted link at end of help section -->
+      <p style="margin-top: 1rem; font-size: 0.82rem; color: var(--text-muted);">
+        If you'd like to end your subscription, you can
+        <a href="cancel/reason.html" class="cancel-link-buried">cancel here</a>.
+      </p>
     </div>
-
-    <div class="spacer"></div>
   </main>
 
   <!-- Footer -->
