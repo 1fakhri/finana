@@ -16,13 +16,22 @@
         StreamMax Pro
       </a>
       <ul class="navbar__links">
-        <li><a href="../dashboard.html">Dashboard</a></li>
-        <li><a href="../settings.html">Settings</a></li>
+        <li><a href="../dashboard.html">Home</a></li>
+        <li><a href="#">Movies</a></li>
+        <li><a href="#">TV Shows</a></li>
         <li><a href="#" class="navbar__upgrade">Upgrade Plan</a></li>
       </ul>
-      <div class="navbar__user">
-        <div class="navbar__avatar">AR</div>
-        <span class="navbar__username">Alex Rivera</span>
+      <div class="navbar__profile" id="profile-dropdown">
+        <button class="navbar__profile-trigger" id="profile-trigger">
+          <div class="navbar__avatar">AR</div>
+          <span class="navbar__username">Alex Rivera</span>
+          <span class="navbar__caret">&#9660;</span>
+        </button>
+        <div class="navbar__dropdown">
+          <a href="../settings.html">Account Settings</a>
+          <div class="navbar__dropdown-divider"></div>
+          <a href="../index.html">Sign Out</a>
+        </div>
       </div>
     </div>
   </nav>
@@ -38,8 +47,8 @@
         <circle cx="52" cy="34" r="3" fill="#ef4444"/>
         <path d="M26 54 C30 48, 50 48, 54 54" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" fill="none"/>
         <!-- Tear drops -->
-        <path d="M28 40 Q27 44 28 46 Q29 44 28 40Z" fill="rgba(124,92,252,0.6)"/>
-        <path d="M52 40 Q51 44 52 46 Q53 44 52 40Z" fill="rgba(124,92,252,0.6)"/>
+        <path d="M28 40 Q27 44 28 46 Q29 44 28 40Z" fill="rgba(229,9,20,0.5)"/>
+        <path d="M52 40 Q51 44 52 46 Q53 44 52 40Z" fill="rgba(229,9,20,0.5)"/>
       </svg>
     </div>
 

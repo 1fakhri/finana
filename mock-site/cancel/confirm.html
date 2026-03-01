@@ -16,13 +16,22 @@
         StreamMax Pro
       </a>
       <ul class="navbar__links">
-        <li><a href="../dashboard.html">Dashboard</a></li>
-        <li><a href="../settings.html">Settings</a></li>
+        <li><a href="../dashboard.html">Home</a></li>
+        <li><a href="#">Movies</a></li>
+        <li><a href="#">TV Shows</a></li>
         <li><a href="#" class="navbar__upgrade">Upgrade Plan</a></li>
       </ul>
-      <div class="navbar__user">
-        <div class="navbar__avatar">AR</div>
-        <span class="navbar__username">Alex Rivera</span>
+      <div class="navbar__profile" id="profile-dropdown">
+        <button class="navbar__profile-trigger" id="profile-trigger">
+          <div class="navbar__avatar">AR</div>
+          <span class="navbar__username">Alex Rivera</span>
+          <span class="navbar__caret">&#9660;</span>
+        </button>
+        <div class="navbar__dropdown">
+          <a href="../settings.html">Account Settings</a>
+          <div class="navbar__dropdown-divider"></div>
+          <a href="../index.html">Sign Out</a>
+        </div>
       </div>
     </div>
   </nav>
