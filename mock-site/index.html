@@ -3,19 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StreamMax Pro - Login</title>
+  <title>StreamMax Pro — Sign In</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <div class="login-container">
-    <h1>StreamMax Pro</h1>
-    <p>Sign in to your account</p>
-    <form id="login-form">
-      <input type="email" id="email" placeholder="Email address" required>
-      <input type="password" id="password" placeholder="Password" required>
-      <button type="submit">Sign In</button>
-    </form>
+  <div class="login-page">
+    <div class="login-container">
+      <div class="login-logo">
+        <div class="login-logo__icon">S</div>
+        <span class="login-logo__text">StreamMax Pro</span>
+      </div>
+      <p class="login-tagline">Unlimited Entertainment, Your Way</p>
+
+      <form class="login-form" id="login-form">
+        <div class="form-group">
+          <label class="form-label" for="email">Email address</label>
+          <input class="form-input" type="email" id="email" value="alex.rivera@email.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <input class="form-input" type="password" id="password" value="password123" required>
+        </div>
+        <button class="btn btn--primary btn--block" type="submit">Log In</button>
+      </form>
+
+      <p class="text-muted mt-3" style="font-size:0.8rem;">
+        Don't have an account? <a href="#">Sign up</a>
+      </p>
+    </div>
   </div>
+
   <script src="js/main.js"></script>
 </body>
 </html>
