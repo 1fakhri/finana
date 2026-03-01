@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StreamMax Pro — Are You Sure?</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar__inner">
+      <a href="../dashboard.html" class="navbar__logo">
+        <div class="navbar__logo-icon">S</div>
+        StreamMax Pro
+      </a>
+      <ul class="navbar__links">
+        <li><a href="../dashboard.html">Dashboard</a></li>
+        <li><a href="../settings.html">Settings</a></li>
+        <li><a href="#" class="navbar__upgrade">Upgrade Plan</a></li>
+      </ul>
+      <div class="navbar__user">
+        <div class="navbar__avatar">AR</div>
+        <span class="navbar__username">Alex Rivera</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Cancel Flow — Guilt Trip -->
+  <div class="cancel-page">
+
+    <!-- DARK PATTERN: Sad illustration -->
+    <div class="guilt-icon">
+      <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="40" cy="40" r="38" stroke="#ef4444" stroke-width="2" fill="rgba(239,68,68,0.08)"/>
+        <circle cx="28" cy="34" r="3" fill="#ef4444"/>
+        <circle cx="52" cy="34" r="3" fill="#ef4444"/>
+        <path d="M26 54 C30 48, 50 48, 54 54" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <!-- Tear drops -->
+        <path d="M28 40 Q27 44 28 46 Q29 44 28 40Z" fill="rgba(124,92,252,0.6)"/>
+        <path d="M52 40 Q51 44 52 46 Q53 44 52 40Z" fill="rgba(124,92,252,0.6)"/>
+      </svg>
+    </div>
+
+    <h1 class="cancel-page__title">Are you sure?</h1>
+    <p class="cancel-page__subtitle">If you cancel, you'll lose access to:</p>
+
+    <!-- DARK PATTERN: Guilt-Trip Copy -->
+    <ul class="loss-list">
+      <li>
+        <span class="loss-list__icon">&#10005;</span>
+        <span><strong>47 saved titles</strong> in your watchlist</span>
+      </li>
+      <li>
+        <span class="loss-list__icon">&#10005;</span>
+        <span>Your <strong>personalized recommendations</strong></span>
+      </li>
+      <li>
+        <span class="loss-list__icon">&#10005;</span>
+        <span><strong>3 years</strong> of watch history</span>
+      </li>
+      <li>
+        <span class="loss-list__icon">&#10005;</span>
+        <span>Access to <strong>StreamMax Originals</strong></span>
+      </li>
+    </ul>
+
+    <div class="guilt-warning">
+      This cannot be undone.
+    </div>
+
+    <!-- Large prominent "I Changed My Mind" button -->
+    <a href="../dashboard.html" class="btn btn--primary btn--large btn--block mt-3">
+      I Changed My Mind
+    </a>
+
+    <!-- DARK PATTERN: Tiny continue link at the bottom -->
+    <a href="confirm.html" class="cancel-continue-link">Continue with Cancellation</a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      &copy; 2026 StreamMax Pro. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

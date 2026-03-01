@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StreamMax Pro — Cancel</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar__inner">
+      <a href="../dashboard.html" class="navbar__logo">
+        <div class="navbar__logo-icon">S</div>
+        StreamMax Pro
+      </a>
+      <ul class="navbar__links">
+        <li><a href="../dashboard.html">Dashboard</a></li>
+        <li><a href="../settings.html">Settings</a></li>
+        <li><a href="#" class="navbar__upgrade">Upgrade Plan</a></li>
+      </ul>
+      <div class="navbar__user">
+        <div class="navbar__avatar">AR</div>
+        <span class="navbar__username">Alex Rivera</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Cancel Flow -->
+  <div class="cancel-page">
+    <h1 class="cancel-page__title">We're sorry to see you go</h1>
+    <p class="cancel-page__subtitle">Before you leave, please let us know why you're canceling so we can improve.</p>
+
+    <!-- DARK PATTERN: Forced Reason Select — guilt-trippy options, Next disabled until selection -->
+    <div style="text-align: left; margin-bottom: 1.5rem;">
+      <label class="form-label" for="cancel-reason">Select a reason for canceling</label>
+      <select class="form-select" id="cancel-reason">
+        <option value="" disabled selected>Choose a reason...</option>
+        <option value="expensive">Too expensive</option>
+        <option value="not-enough-use">I don't use it enough</option>
+        <option value="features">I don't understand all the features</option>
+        <option value="alternative">I found a better alternative</option>
+        <option value="technical">I'm having technical issues</option>
+        <option value="specific-show">I only signed up for a specific show</option>
+        <option value="someone-else">Someone else pays for streaming</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+
+    <button class="btn btn--primary btn--block btn--large" id="reason-next-btn" disabled onclick="window.location.href='offer.html'">
+      Next
+    </button>
+
+    <a href="../plan.html" class="go-back-link">Go back to Plan Management</a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      &copy; 2026 StreamMax Pro. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

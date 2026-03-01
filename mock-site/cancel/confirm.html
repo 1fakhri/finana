@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StreamMax Pro — Confirm Cancellation</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar__inner">
+      <a href="../dashboard.html" class="navbar__logo">
+        <div class="navbar__logo-icon">S</div>
+        StreamMax Pro
+      </a>
+      <ul class="navbar__links">
+        <li><a href="../dashboard.html">Dashboard</a></li>
+        <li><a href="../settings.html">Settings</a></li>
+        <li><a href="#" class="navbar__upgrade">Upgrade Plan</a></li>
+      </ul>
+      <div class="navbar__user">
+        <div class="navbar__avatar">AR</div>
+        <span class="navbar__username">Alex Rivera</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Cancel Flow — Final Confirmation -->
+  <div class="cancel-page">
+    <h1 class="cancel-page__title">Final Step</h1>
+    <p class="cancel-page__subtitle">Please confirm your decision below.</p>
+
+    <div class="card" style="text-align: left; margin-bottom: 2rem;">
+      <div class="card__title">Your Premium Plan</div>
+      <div class="settings-row">
+        <span class="settings-row__label">Plan</span>
+        <span class="settings-row__value">StreamMax Pro Premium</span>
+      </div>
+      <div class="settings-row">
+        <span class="settings-row__label">Price</span>
+        <span class="settings-row__value">$24.99/mo</span>
+      </div>
+      <div class="settings-row">
+        <span class="settings-row__label">Member Since</span>
+        <span class="settings-row__value">March 2023</span>
+      </div>
+    </div>
+
+    <!-- DARK PATTERN: Confusing Button Swap -->
+    <div class="confirm-buttons">
+      <!-- Large blue "Keep" button — primary, prominent -->
+      <a href="../dashboard.html" class="btn btn--primary btn--large btn--block">
+        Keep My Subscription
+      </a>
+
+      <!-- Small, muted, text-only "Yes, Cancel" link -->
+      <a href="success.html" class="confirm-cancel-link">
+        Yes, Cancel My Subscription
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      &copy; 2026 StreamMax Pro. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

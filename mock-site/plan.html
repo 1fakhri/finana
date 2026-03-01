@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StreamMax Pro — Plan Management</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar__inner">
+      <a href="dashboard.html" class="navbar__logo">
+        <div class="navbar__logo-icon">S</div>
+        StreamMax Pro
+      </a>
+      <ul class="navbar__links">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="settings.html" class="active">Settings</a></li>
+        <li><a href="#" class="navbar__upgrade">Upgrade Plan</a></li>
+      </ul>
+      <div class="navbar__user">
+        <div class="navbar__avatar">AR</div>
+        <span class="navbar__username">Alex Rivera</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <main class="page">
+    <h1 class="page-title">Plan Management</h1>
+    <p class="page-subtitle">View and manage your StreamMax Pro subscription.</p>
+
+    <!-- Current Plan Details -->
+    <div class="card mb-3">
+      <div class="card__title">Current Plan</div>
+      <div class="plan-details mt-2">
+        <div>
+          <div class="card__label">Plan</div>
+          <div class="card__value" style="font-size:1.2rem;">
+            Premium
+            <span class="plan-badge">Active</span>
+          </div>
+        </div>
+        <div>
+          <div class="card__label">Monthly Cost</div>
+          <div class="card__value" style="font-size:1.2rem;">$24.99/mo</div>
+        </div>
+        <div>
+          <div class="card__label">Next Billing Date</div>
+          <div style="font-weight:500;">March 5, 2026</div>
+        </div>
+        <div>
+          <div class="card__label">Payment Method</div>
+          <div style="font-weight:500;">Visa •••• 4821</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Plan Features -->
+    <div class="card mb-3">
+      <div class="card__title">Premium Features</div>
+      <ul class="activity-list mt-2">
+        <li class="activity-item">
+          <span class="activity-item__title">4K Ultra HD Streaming</span>
+          <span style="color: var(--success);">&#10003;</span>
+        </li>
+        <li class="activity-item">
+          <span class="activity-item__title">6 Simultaneous Screens</span>
+          <span style="color: var(--success);">&#10003;</span>
+        </li>
+        <li class="activity-item">
+          <span class="activity-item__title">Offline Downloads (Unlimited)</span>
+          <span style="color: var(--success);">&#10003;</span>
+        </li>
+        <li class="activity-item">
+          <span class="activity-item__title">Ad-Free Experience</span>
+          <span style="color: var(--success);">&#10003;</span>
+        </li>
+        <li class="activity-item">
+          <span class="activity-item__title">Early Access to Originals</span>
+          <span style="color: var(--success);">&#10003;</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- DARK PATTERN: Upsell Banners (prominent, above the cancel link) -->
+    <div class="upsell-banner">
+      <div class="upsell-banner__text">
+        <h3>Switch to Annual Plan</h3>
+        <p>Save 20% — pay $239.90/year instead of $299.88</p>
+      </div>
+      <a href="#" class="btn btn--success">Save 20% Now</a>
+    </div>
+
+    <div class="upsell-banner">
+      <div class="upsell-banner__text">
+        <h3>Add Premium Sports Package</h3>
+        <p>Live games, exclusive commentary, and highlights — $9.99/mo</p>
+      </div>
+      <a href="#" class="btn btn--primary">Add Package</a>
+    </div>
+
+    <div class="upsell-banner">
+      <div class="upsell-banner__text">
+        <h3>StreamMax Pro Family</h3>
+        <p>Share your plan with up to 5 family members — $34.99/mo</p>
+      </div>
+      <a href="#" class="btn btn--outline">Learn More</a>
+    </div>
+
+    <!-- Large gap before buried cancel link -->
+    <div class="spacer"></div>
+    <div class="spacer"></div>
+
+    <!-- DARK PATTERN: Buried Cancel — small, gray, at the very bottom -->
+    <div style="text-align: center;">
+      <a href="cancel/reason.html" class="cancel-link-buried">Cancel Subscription</a>
+    </div>
+
+    <div class="spacer"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      &copy; 2026 StreamMax Pro. All rights reserved. &nbsp;|&nbsp;
+      <a href="#">Terms</a> &nbsp;|&nbsp;
+      <a href="#">Privacy</a> &nbsp;|&nbsp;
+      <a href="#">Help Center</a>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

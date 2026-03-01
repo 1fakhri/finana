@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StreamMax Pro — Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar__inner">
+      <a href="dashboard.html" class="navbar__logo">
+        <div class="navbar__logo-icon">S</div>
+        StreamMax Pro
+      </a>
+      <ul class="navbar__links">
+        <li><a href="dashboard.html" class="active">Dashboard</a></li>
+        <li><a href="settings.html">Settings</a></li>
+        <li><a href="#" class="navbar__upgrade">Upgrade Plan</a></li>
+      </ul>
+      <div class="navbar__user">
+        <div class="navbar__avatar">AR</div>
+        <span class="navbar__username">Alex Rivera</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <main class="page">
+    <h1 class="page-title">Welcome back, Alex</h1>
+    <p class="page-subtitle">Here's what's happening with your account.</p>
+
+    <!-- Stats Grid -->
+    <div class="dashboard-grid">
+      <div class="card">
+        <div class="card__label">Your Plan</div>
+        <div class="card__value">
+          Premium
+          <span class="plan-badge">Active</span>
+        </div>
+        <p class="text-muted mt-1" style="font-size:0.9rem;">StreamMax Pro — $24.99/mo</p>
+      </div>
+      <div class="card">
+        <div class="card__label">Next Billing Date</div>
+        <div class="card__value">March 5, 2026</div>
+        <p class="text-muted mt-1" style="font-size:0.9rem;">Visa ending in 4821</p>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="card mb-3">
+      <div class="card__title">Recent Activity</div>
+      <ul class="activity-list mt-2">
+        <li class="activity-item">
+          <div>
+            <div class="activity-item__title">The Last Frontier — S3 E7</div>
+            <div class="activity-item__meta">Watched 45 min ago</div>
+          </div>
+          <span class="text-muted" style="font-size:0.8rem;">52 min</span>
+        </li>
+        <li class="activity-item">
+          <div>
+            <div class="activity-item__title">Neon Horizons — S1 E12</div>
+            <div class="activity-item__meta">Watched yesterday</div>
+          </div>
+          <span class="text-muted" style="font-size:0.8rem;">38 min</span>
+        </li>
+        <li class="activity-item">
+          <div>
+            <div class="activity-item__title">Cooking Wars: Ultimate</div>
+            <div class="activity-item__meta">Watched 2 days ago</div>
+          </div>
+          <span class="text-muted" style="font-size:0.8rem;">44 min</span>
+        </li>
+        <li class="activity-item">
+          <div>
+            <div class="activity-item__title">Dark Matter — S2 E3</div>
+            <div class="activity-item__meta">Watched 3 days ago</div>
+          </div>
+          <span class="text-muted" style="font-size:0.8rem;">55 min</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Continue Watching -->
+    <div class="card">
+      <div class="card__title">Continue Watching</div>
+      <div class="watching-grid">
+        <div class="watching-card">
+          <div class="watching-card__thumb" style="background: linear-gradient(135deg, #1e3a5f, #2d5a87);">
+            🎬
+          </div>
+          <div class="watching-card__info">
+            <div class="watching-card__title">The Last Frontier</div>
+            <div class="watching-card__progress">
+              <div class="watching-card__progress-bar" style="width: 72%;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="watching-card">
+          <div class="watching-card__thumb" style="background: linear-gradient(135deg, #4a1942, #803070);">
+            🌃
+          </div>
+          <div class="watching-card__info">
+            <div class="watching-card__title">Neon Horizons</div>
+            <div class="watching-card__progress">
+              <div class="watching-card__progress-bar" style="width: 38%;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="watching-card">
+          <div class="watching-card__thumb" style="background: linear-gradient(135deg, #5a3e1b, #8a6a3e);">
+            🍳
+          </div>
+          <div class="watching-card__info">
+            <div class="watching-card__title">Cooking Wars</div>
+            <div class="watching-card__progress">
+              <div class="watching-card__progress-bar" style="width: 55%;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="watching-card">
+          <div class="watching-card__thumb" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">
+            🌑
+          </div>
+          <div class="watching-card__info">
+            <div class="watching-card__title">Dark Matter</div>
+            <div class="watching-card__progress">
+              <div class="watching-card__progress-bar" style="width: 22%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      &copy; 2026 StreamMax Pro. All rights reserved. &nbsp;|&nbsp;
+      <a href="#">Terms</a> &nbsp;|&nbsp;
+      <a href="#">Privacy</a> &nbsp;|&nbsp;
+      <a href="#">Help Center</a>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

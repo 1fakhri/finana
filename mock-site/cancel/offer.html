@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StreamMax Pro — Special Offer</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar__inner">
+      <a href="../dashboard.html" class="navbar__logo">
+        <div class="navbar__logo-icon">S</div>
+        StreamMax Pro
+      </a>
+      <ul class="navbar__links">
+        <li><a href="../dashboard.html">Dashboard</a></li>
+        <li><a href="../settings.html">Settings</a></li>
+        <li><a href="#" class="navbar__upgrade">Upgrade Plan</a></li>
+      </ul>
+      <div class="navbar__user">
+        <div class="navbar__avatar">AR</div>
+        <span class="navbar__username">Alex Rivera</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Cancel Flow — Retention Offer -->
+  <div class="cancel-page">
+    <h1 class="cancel-page__title">Wait! We have a special offer for you</h1>
+    <p class="cancel-page__subtitle">We'd hate to lose you. How about a deal?</p>
+
+    <!-- DARK PATTERN: Retention Offer — visually dominant -->
+    <div class="offer-card">
+      <div class="offer-card__badge">Exclusive Offer</div>
+      <h2 style="font-size: 1.4rem; font-weight: 700;">50% off for 3 months</h2>
+      <p style="color: var(--text-secondary); margin-top: 0.5rem;">Keep enjoying unlimited streaming at half the price.</p>
+
+      <div class="offer-card__price">
+        <span class="original">$24.99/mo</span>
+        <span class="sale">$12.50</span>
+        <span class="period">/mo for 3 months</span>
+      </div>
+
+      <!-- DARK PATTERN: Countdown Pressure — fake timer -->
+      <div class="countdown-timer">
+        ⏱ This offer expires in <span id="countdown">4:59</span>
+      </div>
+    </div>
+
+    <!-- Large, bright "Accept Offer" button -->
+    <a href="../dashboard.html" class="btn btn--success btn--large btn--block">
+      Accept Offer &amp; Stay
+    </a>
+
+    <!-- DARK PATTERN: Tiny, gray "No thanks" link -->
+    <a href="guilt.html" class="cancel-continue-link">No thanks, continue canceling</a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      &copy; 2026 StreamMax Pro. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
