@@ -1,0 +1,11 @@
+{
+  "name": "finana",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n frontend,backend,mock-site -c blue,green,yellow \"npm run dev --prefix frontend\" \"npm run dev --prefix backend\" \"npx http-server mock-site -p 3001 -s\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "http-server": "^14.1.1"
+  }
+}
