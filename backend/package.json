@@ -9,18 +9,19 @@
     "start": "node dist/server.js"
   },
   "dependencies": {
-    "express": "^5.1.0",
-    "cors": "^2.8.5",
-    "ws": "^8.18.0",
     "@aws-sdk/client-bedrock-runtime": "^3.0.0",
-    "@supabase/supabase-js": "^2.98.0"
+    "@supabase/supabase-js": "^2.98.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "playwright": "^1.58.2",
+    "ws": "^8.18.0"
   },
   "devDependencies": {
-    "@types/express": "^5.0.0",
     "@types/cors": "^2.8.17",
-    "@types/ws": "^8.18.0",
+    "@types/express": "^5.0.0",
     "@types/node": "^22.0.0",
-    "typescript": "^5.7.0",
-    "tsx": "^4.19.0"
+    "@types/ws": "^8.18.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
   }
 }
