@@ -1,6 +1,19 @@
 // StreamMax Pro — Mock site interactivity
 document.addEventListener("DOMContentLoaded", () => {
 
+  // --- Profile dropdown toggle ---
+  const profileDropdown = document.getElementById("profile-dropdown");
+  const profileTrigger = document.getElementById("profile-trigger");
+  if (profileDropdown && profileTrigger) {
+    profileTrigger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      profileDropdown.classList.toggle("open");
+    });
+    document.addEventListener("click", () => {
+      profileDropdown.classList.remove("open");
+    });
+  }
+
   // --- Login form: navigate to dashboard on submit ---
   const loginForm = document.getElementById("login-form");
   if (loginForm) {

@@ -1,6 +1,6 @@
 /* ============================================================
    StreamMax Pro — Global Styles
-   Dark purple/navy streaming-service theme
+   Dark red & black streaming-service theme
    ============================================================ */
 
 /* --- Reset & Base --- */
@@ -11,18 +11,18 @@
 }
 
 :root {
-  /* Brand palette */
-  --bg-primary: #0b0d1a;
-  --bg-secondary: #111428;
-  --bg-card: #161a33;
-  --bg-input: #1c2040;
-  --border: #2a2f52;
-  --text-primary: #f0f0f5;
-  --text-secondary: #9a9bbe;
-  --text-muted: #5e6080;
-  --accent: #7c5cfc;
-  --accent-hover: #9478ff;
-  --accent-glow: rgba(124, 92, 252, 0.25);
+  /* Brand palette — dark red / black */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #141414;
+  --bg-card: #1a1a1a;
+  --bg-input: #222;
+  --border: #2a2a2a;
+  --text-primary: #f5f5f5;
+  --text-secondary: #a0a0a0;
+  --text-muted: #666;
+  --accent: #e50914;
+  --accent-hover: #ff1a26;
+  --accent-glow: rgba(229, 9, 20, 0.25);
   --danger: #ef4444;
   --danger-hover: #dc2626;
   --success: #22c55e;
@@ -78,7 +78,7 @@ img { max-width: 100%; display: block; }
   top: 0;
   z-index: 100;
   height: var(--nav-height);
-  background: rgba(11, 13, 26, 0.92);
+  background: rgba(10, 10, 10, 0.95);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   display: flex;
@@ -108,7 +108,7 @@ img { max-width: 100%; display: block; }
 .navbar__logo-icon {
   width: 32px;
   height: 32px;
-  background: linear-gradient(135deg, var(--accent), #a78bfa);
+  background: var(--accent);
   border-radius: 6px;
   display: flex;
   align-items: center;
@@ -139,7 +139,7 @@ img { max-width: 100%; display: block; }
 }
 
 .navbar__upgrade {
-  background: linear-gradient(135deg, var(--accent), #a78bfa);
+  background: var(--accent);
   color: #fff !important;
   padding: 0.5rem 1.1rem;
   border-radius: var(--radius);
@@ -162,7 +162,7 @@ img { max-width: 100%; display: block; }
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  background: #333;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -175,6 +175,74 @@ img { max-width: 100%; display: block; }
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--text-secondary);
+}
+
+/* Profile dropdown */
+.navbar__profile {
+  position: relative;
+}
+
+.navbar__profile-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  cursor: pointer;
+  padding: 0.25rem 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font-family: inherit;
+}
+
+.navbar__profile-trigger:hover .navbar__username {
+  color: var(--text-primary);
+}
+
+.navbar__caret {
+  font-size: 0.55rem;
+  color: var(--text-muted);
+  transition: transform 0.15s;
+}
+
+.navbar__profile.open .navbar__caret {
+  transform: rotate(180deg);
+}
+
+.navbar__dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 180px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  overflow: hidden;
+  z-index: 200;
+}
+
+.navbar__profile.open .navbar__dropdown {
+  display: block;
+}
+
+.navbar__dropdown a {
+  display: block;
+  padding: 0.7rem 1rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.1s, color 0.1s;
+}
+
+.navbar__dropdown a:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.navbar__dropdown-divider {
+  height: 1px;
+  background: var(--border);
 }
 
 
@@ -403,7 +471,7 @@ img { max-width: 100%; display: block; }
 .login-logo__icon {
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, var(--accent), #a78bfa);
+  background: var(--accent);
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -451,7 +519,7 @@ img { max-width: 100%; display: block; }
 .plan-badge {
   display: inline-block;
   padding: 0.25rem 0.75rem;
-  background: var(--accent-glow);
+  background: rgba(229, 9, 20, 0.15);
   color: var(--accent);
   border-radius: 20px;
   font-size: 0.8rem;
@@ -551,7 +619,7 @@ img { max-width: 100%; display: block; }
   width: 40px;
   height: 40px;
   border-radius: var(--radius);
-  background: var(--accent-glow);
+  background: rgba(229, 9, 20, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -585,15 +653,55 @@ img { max-width: 100%; display: block; }
   font-weight: 500;
 }
 
-/* Hidden manage subscription link — dark pattern */
+/* Subscription banner on settings — dark pattern: "Manage" link is de-emphasized inside */
+.sub-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.sub-banner__info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sub-banner__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius);
+  background: rgba(229, 9, 20, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.sub-banner__plan {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.sub-banner__price {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* DARK PATTERN: Manage Subscription link — plain, muted, small text */
 .manage-sub-link {
-  color: #666;
+  color: var(--text-muted);
   font-size: 0.82rem;
   text-decoration: none;
   transition: color 0.15s;
+  white-space: nowrap;
 }
 .manage-sub-link:hover {
-  color: #888;
+  color: var(--text-secondary);
 }
 
 
@@ -608,7 +716,7 @@ img { max-width: 100%; display: block; }
 }
 
 .upsell-banner {
-  background: linear-gradient(135deg, var(--bg-card), #1e2248);
+  background: linear-gradient(135deg, var(--bg-card), #1f1f1f);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
@@ -692,7 +800,7 @@ img { max-width: 100%; display: block; }
    Cancel — Retention Offer
    ============================================================ */
 .offer-card {
-  background: linear-gradient(135deg, #1a1e40, #252a55);
+  background: linear-gradient(135deg, #1a1010, #2a1515);
   border: 2px solid var(--accent);
   border-radius: var(--radius-lg);
   padding: 2.5rem 2rem;
