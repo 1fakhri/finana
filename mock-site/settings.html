@@ -16,13 +16,22 @@
         StreamMax Pro
       </a>
       <ul class="navbar__links">
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="settings.html" class="active">Settings</a></li>
+        <li><a href="dashboard.html">Home</a></li>
+        <li><a href="#">Movies</a></li>
+        <li><a href="#">TV Shows</a></li>
         <li><a href="#" class="navbar__upgrade">Upgrade Plan</a></li>
       </ul>
-      <div class="navbar__user">
-        <div class="navbar__avatar">AR</div>
-        <span class="navbar__username">Alex Rivera</span>
+      <div class="navbar__profile" id="profile-dropdown">
+        <button class="navbar__profile-trigger" id="profile-trigger">
+          <div class="navbar__avatar">AR</div>
+          <span class="navbar__username">Alex Rivera</span>
+          <span class="navbar__caret">&#9660;</span>
+        </button>
+        <div class="navbar__dropdown">
+          <a href="settings.html">Account Settings</a>
+          <div class="navbar__dropdown-divider"></div>
+          <a href="index.html">Sign Out</a>
+        </div>
       </div>
     </div>
   </nav>
@@ -96,16 +105,18 @@
       </div>
     </div>
 
-    <!-- DARK PATTERN: Large whitespace gap before the hidden link -->
-    <div class="spacer"></div>
-    <div class="spacer"></div>
-
-    <!-- DARK PATTERN: Manage Subscription — muted gray text, no icon, no button styling -->
-    <div style="text-align: center;">
-      <a href="plan.html" class="manage-sub-link">Manage Subscription</a>
+    <!-- Subscription Banner — "Manage Subscription" is de-emphasized inside -->
+    <div class="sub-banner mb-3">
+      <div class="sub-banner__info">
+        <div class="sub-banner__icon">&#9654;</div>
+        <div>
+          <div class="sub-banner__plan">StreamMax Pro Premium</div>
+          <div class="sub-banner__price">$24.99/mo &middot; Renews March 5, 2026</div>
+        </div>
+      </div>
+      <!-- DARK PATTERN: small muted "Manage" link instead of a prominent button -->
+      <a href="plan.html" class="manage-sub-link">Manage</a>
     </div>
-
-    <div class="spacer"></div>
   </main>
 
   <!-- Footer -->
