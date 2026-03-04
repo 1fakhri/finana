@@ -1,26 +1,386 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ============================================================
+   FINANA DESIGN SYSTEM — Tailwind v4 Theme Configuration
+   Reference: design_prd.md (Sections 1-11)
+   ============================================================ */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* --- Primary Palette (Section 2.1) --- */
+  --color-bg-void: #08090C;
+  --color-bg-base: #0C0F14;
+  --color-bg-surface: #13161D;
+  --color-bg-elevated: #1A1D26;
+  --color-bg-hover: #22262F;
+  --color-bg-subtle: #2A2E38;
+
+  /* --- Accent Colors (Section 2.1) --- */
+  --color-accent-primary: #F5C518;
+  --color-accent-warm: #E8A317;
+  --color-accent-soft: #FFD966;
+  --color-accent-cream: #FFF3C4;
+
+  /* --- Text Colors (Section 2.1) --- */
+  --color-text-primary: #EAECF0;
+  --color-text-secondary: #8B95A5;
+  --color-text-tertiary: #5A6478;
+
+  /* --- Semantic Colors (Section 2.2) --- */
+  --color-kill: #E84142;
+  --color-kill-bg: #E841421A;
+  --color-success: #34D399;
+  --color-success-bg: #34D3991A;
+  --color-warning: #F59E0B;
+  --color-warning-bg: #F59E0B1A;
+  --color-error: #F472B6;
+  --color-error-bg: #F472B61A;
+  --color-info: #818CF8;
+  --color-info-bg: #818CF81A;
+
+  /* --- Border Colors (Section 2.1) --- */
+  --color-border-default: #1A1E28;
+  --color-border-accent: #F5C51820;
+
+  /* --- Font Families (Section 4.1) --- */
+  --font-display: var(--font-bricolage), 'Sora', sans-serif;
+  --font-body: var(--font-jakarta), 'DM Sans', sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), 'Fira Code', monospace;
+
+  /* --- Border Radius Scale (Section 5.4) --- */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================================================
+   Motion Tokens (Section 9.1)
+   ============================================================ */
+
+:root {
+  --duration-instant: 80ms;
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --duration-dramatic: 600ms;
+
+  --easing-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --easing-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  --easing-exit: cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* ============================================================
+   Global Reset & Base Styles (Section 7, 11)
+   ============================================================ */
+
+html,
+body {
+  background-color: var(--color-bg-void);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================
+   Typography Scale (Section 4.2)
+   ============================================================ */
+
+.text-display {
+  font-family: var(--font-display);
+  font-size: 56px;
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-optical-sizing: auto;
+}
+
+.text-h1 {
+  font-family: var(--font-display);
+  font-size: 36px;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-optical-sizing: auto;
+}
+
+.text-h2 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  font-optical-sizing: auto;
+}
+
+.text-h3 {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+.text-body {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  font-weight: 400;
+  letter-spacing: 0.005em;
+}
+
+.text-sm {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.text-xs {
+  font-family: var(--font-body);
+  font-size: 11px;
+  line-height: 1.45;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.text-mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+
+/* Financial numbers — tabular alignment */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   Background Atmosphere (Section 3)
+   ============================================================ */
+
+.page-background {
+  background-color: var(--color-bg-void);
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Layer 1: Gradient mesh — dual warm radial glows */
+.page-background::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(245, 197, 24, 0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 90%, rgba(129, 140, 248, 0.025) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Layer 2: Noise texture overlay */
+.page-background::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('/textures/noise.svg');
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================================================
+   Surface & Depth System (Section 6)
+   ============================================================ */
+
+.surface-void {
+  background-color: var(--color-bg-void);
+}
+
+.surface-base {
+  background-color: var(--color-bg-base);
+}
+
+.surface-card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.surface-elevated {
+  background-color: var(--color-bg-elevated);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.surface-float {
+  background-color: var(--color-bg-hover);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Glass surface — overlays only (Section 6.2) */
+.glass {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.015) 100%
+  );
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.glass-sm {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.015) 100%
+  );
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* ============================================================
+   Gold Glow System (Section 11.2)
+   ============================================================ */
+
+.glow-gold {
+  box-shadow: 0 2px 8px rgba(245, 197, 24, 0.12);
+}
+
+.glow-gold-hover {
+  box-shadow:
+    0 4px 20px rgba(245, 197, 24, 0.2),
+    0 0 60px rgba(245, 197, 24, 0.05);
+}
+
+.glow-gold-focus {
+  box-shadow:
+    0 0 0 2px rgba(245, 197, 24, 0.25),
+    0 0 20px rgba(245, 197, 24, 0.1);
+}
+
+/* ============================================================
+   Stagger-In Animation (Section 8.1)
+   ============================================================ */
+
+.stagger-in {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: stagger-reveal 500ms cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+
+@keyframes stagger-reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stagger-in:nth-child(1) { animation-delay: 0ms; }
+.stagger-in:nth-child(2) { animation-delay: 60ms; }
+.stagger-in:nth-child(3) { animation-delay: 120ms; }
+.stagger-in:nth-child(4) { animation-delay: 180ms; }
+.stagger-in:nth-child(5) { animation-delay: 240ms; }
+.stagger-in:nth-child(6) { animation-delay: 300ms; }
+.stagger-in:nth-child(7) { animation-delay: 360ms; }
+.stagger-in:nth-child(8) { animation-delay: 420ms; }
+.stagger-in:nth-child(9) { animation-delay: 480ms; }
+.stagger-in:nth-child(10) { animation-delay: 540ms; }
+.stagger-in:nth-child(n+11) { animation-delay: 600ms; }
+
+/* ============================================================
+   Reduced Motion (Section 9.3)
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   Scrollbar Styling
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent-primary);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-warm);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent-primary) var(--color-bg-base);
+}
+
+/* ============================================================
+   Safe Area Insets (Capacitor / PWA)
+   ============================================================ */
+
+.safe-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-left {
+  padding-left: env(safe-area-inset-left);
+}
+
+.safe-right {
+  padding-right: env(safe-area-inset-right);
+}
+
+.safe-x {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+.safe-y {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-all {
+  padding-top: env(safe-area-inset-top);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
 }
