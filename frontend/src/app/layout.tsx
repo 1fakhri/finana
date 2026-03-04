@@ -47,7 +47,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${bricolage.variable} ${jakarta.variable} ${ibmPlexMono.variable} font-sans antialiased`}
+        className={`${bricolage.variable} ${jakarta.variable} ${ibmPlexMono.variable} antialiased`}
       >
         {children}
         <BottomNav />

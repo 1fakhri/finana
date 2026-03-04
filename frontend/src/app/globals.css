@@ -41,10 +41,18 @@
   --color-border-default: #1A1E28;
   --color-border-accent: #F5C51820;
 
-  /* --- Font Families (Section 4.1) --- */
-  --font-display: var(--font-bricolage), 'Sora', sans-serif;
-  --font-body: var(--font-jakarta), 'DM Sans', sans-serif;
-  --font-mono: var(--font-ibm-plex-mono), 'Fira Code', monospace;
+  /* --- Font Families (Section 4.1) ---
+     Placeholder values for Tailwind registration.
+     Actual next/font variable fonts override these on <body>. */
+  --default-font-family: sans-serif;
+  --default-mono-font-family: monospace;
+  --font-sans: sans-serif;
+  --font-display: sans-serif;
+  --font-mono: monospace;
+
+  /* --- Breakpoints (Section 5.3) --- */
+  --breakpoint-lg: 1080px;
+  --breakpoint-xl: 1440px;
 
   /* --- Border Radius Scale (Section 5.4) --- */
   --radius-xs: 4px;
@@ -80,10 +88,17 @@ html,
 body {
   background-color: var(--color-bg-void);
   color: var(--color-text-primary);
-  font-family: var(--font-body);
 }
 
+/* Override font theme tokens on body where next/font CSS vars are in scope.
+   next/font sets --font-bricolage, --font-jakarta, --font-ibm-plex-mono
+   via class names on <body>, so these var() refs resolve here. */
 body {
+  --default-font-family: var(--font-jakarta), 'DM Sans', sans-serif;
+  --default-mono-font-family: var(--font-ibm-plex-mono), 'Fira Code', monospace;
+  --font-sans: var(--font-jakarta), 'DM Sans', sans-serif;
+  --font-display: var(--font-bricolage), 'Sora', sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), 'Fira Code', monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -120,14 +135,14 @@ body {
 }
 
 .text-h3 {
-  font-family: var(--font-body);
+  font-family: var(--font-sans);
   font-size: 18px;
   line-height: 1.35;
   font-weight: 600;
 }
 
 .text-body {
-  font-family: var(--font-body);
+  font-family: var(--font-sans);
   font-size: 15px;
   line-height: 1.55;
   font-weight: 400;
@@ -135,7 +150,7 @@ body {
 }
 
 .text-sm {
-  font-family: var(--font-body);
+  font-family: var(--font-sans);
   font-size: 13px;
   line-height: 1.5;
   font-weight: 500;
@@ -143,7 +158,7 @@ body {
 }
 
 .text-xs {
-  font-family: var(--font-body);
+  font-family: var(--font-sans);
   font-size: 11px;
   line-height: 1.45;
   font-weight: 500;
