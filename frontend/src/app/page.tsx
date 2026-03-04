@@ -7,7 +7,6 @@ import { Shield, Zap, TrendingDown, AlertTriangle, DollarSign, Eye, Ban } from "
 import { Button } from "@/components/Button";
 import { CallButton } from "@/components/CallButton";
 import { GradientText } from "@/components/GradientText";
-import { StaggerContainer, StaggerItem } from "@/components/StaggerContainer";
 import { FloatingParticles } from "@/components/FloatingParticles";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { fadeIn, scaleIn, safeVariants } from "@/lib/motion";
@@ -22,6 +21,13 @@ import { CountUp } from "@/components/ui/CountUp";
 import { FlipWords } from "@/components/ui/FlipWords";
 import { Marquee, MarqueeItem } from "@/components/ui/Marquee";
 import { CornerBracketCard } from "@/components/ui/CornerBracketCard";
+import { ScrollReveal, ScrollRevealGroup, ScrollRevealItem } from "@/components/ui/ScrollReveal";
+import { TextGenerateEffect } from "@/components/ui/TextGenerateEffect";
+import { Lamp } from "@/components/ui/LampEffect";
+import { BackgroundBeams } from "@/components/ui/BackgroundBeams";
+import { Meteors } from "@/components/ui/Meteors";
+import { MagneticButton } from "@/components/ui/MagneticButton";
+import { Sparkles } from "@/components/ui/Sparkles";
 
 const FLIP_WORDS = ["subscriptions", "dark patterns", "hidden fees", "guilt trips", "auto-renewals"];
 
@@ -62,9 +68,11 @@ export default function Home() {
       <div className="relative z-10 mx-auto max-w-[1320px] px-4 py-12 pb-24 lg:pb-12">
 
         {/* ═══════════════════════════════════════════════════════════
-            HERO SECTION
+            HERO SECTION — with Meteors + Sparkles
            ═══════════════════════════════════════════════════════════ */}
         <section className="relative mb-16 flex flex-col items-center text-center pt-8">
+          <Meteors count={10} />
+
           <motion.div
             variants={safeVariants(fadeIn, reducedMotion)}
             initial="hidden"
@@ -88,13 +96,15 @@ export default function Home() {
             animate="visible"
           >
             <h1 className="text-display mb-4">
-              <ShinyText
-                text="Finana"
-                speed={3}
-                color="#8B95A5"
-                shineColor="#F5C518"
-                className="text-display"
-              />
+              <Sparkles sparkleCount={6} minSize={10} maxSize={20}>
+                <ShinyText
+                  text="Finana"
+                  speed={3}
+                  color="#8B95A5"
+                  shineColor="#F5C518"
+                  className="text-display"
+                />
+              </Sparkles>
             </h1>
           </motion.div>
 
@@ -118,7 +128,9 @@ export default function Home() {
             initial="hidden"
             animate="visible"
           >
-            <CallButton />
+            <MagneticButton strength={0.3} radius={200}>
+              <CallButton />
+            </MagneticButton>
           </motion.div>
         </section>
 
@@ -133,70 +145,69 @@ export default function Home() {
                 <span className={`text-xs font-bold uppercase tracking-[0.08em] ${item.color}`}>
                   {item.text}
                 </span>
-                <span className="text-text-tertiary mx-4">•</span>
+                <span className="text-text-tertiary mx-4">&bull;</span>
               </MarqueeItem>
             ))}
           </Marquee>
         </div>
 
         {/* ═══════════════════════════════════════════════════════════
-            STATS — CountUp in corner bracket cards
+            STATS — CountUp in spotlight cards with scroll reveal
            ═══════════════════════════════════════════════════════════ */}
-        <StaggerContainer className="mb-20">
-          <StaggerItem>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-              {[
-                { label: "Avg. Wasted / Year", prefix: "$", value: 2400, suffix: "", color: "text-kill" },
-                { label: "Dark Patterns Found", prefix: "", value: 847, suffix: "+", color: "text-accent-primary" },
-                { label: "Subscriptions Killed", prefix: "", value: 12300, suffix: "+", color: "text-success" },
-                { label: "Money Saved", prefix: "$", value: 3200000, suffix: "+", color: "text-accent-soft" },
-              ].map((stat) => (
-                <SpotlightCard key={stat.label} className="p-5 text-center">
-                  <p className={`text-h1 tabular-nums font-bold font-mono ${stat.color}`}>
-                    {stat.prefix}
-                    <CountUp to={stat.value} separator="," duration={2.5} />
-                    {stat.suffix}
-                  </p>
-                  <p className="text-xs text-text-tertiary mt-1 uppercase tracking-[0.06em]">{stat.label}</p>
-                </SpotlightCard>
-              ))}
-            </div>
-          </StaggerItem>
-        </StaggerContainer>
+        <ScrollRevealGroup className="mb-20 grid grid-cols-2 gap-4 sm:grid-cols-4" stagger={0.12}>
+          {[
+            { label: "Avg. Wasted / Year", prefix: "$", value: 2400, suffix: "", color: "text-kill" },
+            { label: "Dark Patterns Found", prefix: "", value: 847, suffix: "+", color: "text-accent-primary" },
+            { label: "Subscriptions Killed", prefix: "", value: 12300, suffix: "+", color: "text-success" },
+            { label: "Money Saved", prefix: "$", value: 3200000, suffix: "+", color: "text-accent-soft" },
+          ].map((stat) => (
+            <ScrollRevealItem key={stat.label}>
+              <SpotlightCard className="p-5 text-center">
+                <p className={`text-h1 tabular-nums font-bold font-mono ${stat.color}`}>
+                  {stat.prefix}
+                  <CountUp to={stat.value} separator="," duration={2.5} />
+                  {stat.suffix}
+                </p>
+                <p className="text-xs text-text-tertiary mt-1 uppercase tracking-[0.06em]">{stat.label}</p>
+              </SpotlightCard>
+            </ScrollRevealItem>
+          ))}
+        </ScrollRevealGroup>
 
         {/* ═══════════════════════════════════════════════════════════
-            FEATURE CARDS — HUD corner bracket aesthetic
+            LAMP + FEATURE CARDS — Dramatic section header
            ═══════════════════════════════════════════════════════════ */}
-        <StaggerContainer className="mb-20">
-          <StaggerItem>
-            <h2 className="text-h2 text-text-primary mb-2">
+        <section className="mb-20">
+          <Lamp>
+            <h2 className="text-h2 text-text-primary text-center mb-2">
               <GradientText>How It Works</GradientText>
             </h2>
-            <p className="text-body text-text-tertiary mb-8">Three steps to financial freedom.</p>
-          </StaggerItem>
-          <StaggerItem>
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
-              {[
-                {
-                  icon: Shield,
-                  title: "Detect",
-                  desc: "AI scans your subscriptions and identifies dark patterns — hidden fees, forced renewals, guilt trips.",
-                  num: "01",
-                },
-                {
-                  icon: Zap,
-                  title: "Neutralize",
-                  desc: "One-tap cancellation agent navigates retention flows, dodges offers, and completes the kill.",
-                  num: "02",
-                },
-                {
-                  icon: TrendingDown,
-                  title: "Defend",
-                  desc: "Continuous monitoring alerts you to new charges, price hikes, and sneaky re-enrollments.",
-                  num: "03",
-                },
-              ].map((feature) => (
-                <CornerBracketCard key={feature.title}>
+            <p className="text-body text-text-tertiary text-center">Three steps to financial freedom.</p>
+          </Lamp>
+
+          <ScrollRevealGroup className="grid grid-cols-1 gap-5 sm:grid-cols-3" stagger={0.15}>
+            {[
+              {
+                icon: Shield,
+                title: "Detect",
+                desc: "AI scans your subscriptions and identifies dark patterns — hidden fees, forced renewals, guilt trips.",
+                num: "01",
+              },
+              {
+                icon: Zap,
+                title: "Neutralize",
+                desc: "One-tap cancellation agent navigates retention flows, dodges offers, and completes the kill.",
+                num: "02",
+              },
+              {
+                icon: TrendingDown,
+                title: "Defend",
+                desc: "Continuous monitoring alerts you to new charges, price hikes, and sneaky re-enrollments.",
+                num: "03",
+              },
+            ].map((feature) => (
+              <ScrollRevealItem key={feature.title}>
+                <CornerBracketCard>
                   <div className="flex items-start justify-between mb-4">
                     <feature.icon className="h-8 w-8 text-accent-primary" strokeWidth={1.5} />
                     <span className="text-mono text-text-tertiary text-xs">{feature.num}</span>
@@ -204,88 +215,120 @@ export default function Home() {
                   <h3 className="text-h3 text-text-primary mb-2">{feature.title}</h3>
                   <p className="text-sm text-text-secondary">{feature.desc}</p>
                 </CornerBracketCard>
-              ))}
-            </div>
-          </StaggerItem>
-        </StaggerContainer>
+              </ScrollRevealItem>
+            ))}
+          </ScrollRevealGroup>
+        </section>
 
         {/* ═══════════════════════════════════════════════════════════
-            BUTTONS — Star borders + shimmer showcase
+            AGENT MESSAGE — TextGenerateEffect showcase
            ═══════════════════════════════════════════════════════════ */}
-        <StaggerContainer className="mb-20">
-          <StaggerItem>
+        <ScrollReveal className="mb-20" variant="blur">
+          <div className="relative overflow-hidden rounded-radius-lg surface-card p-8 sm:p-12">
+            <BackgroundBeams />
+            <div className="relative z-10">
+              <p className="text-xs text-accent-primary font-mono uppercase tracking-[0.15em] mb-4">
+                // Agent Analysis
+              </p>
+              <TextGenerateEffect
+                words="Scanning 14 active subscriptions. 3 dark patterns detected. 2 hidden fees found. Estimated annual savings: $847.00. Ready to neutralize."
+                className="text-h2 text-text-primary leading-relaxed max-w-3xl"
+                duration={0.4}
+                staggerDelay={0.05}
+              />
+            </div>
+          </div>
+        </ScrollReveal>
+
+        {/* ═══════════════════════════════════════════════════════════
+            BUTTONS — Magnetic + Star borders
+           ═══════════════════════════════════════════════════════════ */}
+        <section className="mb-20">
+          <ScrollReveal>
             <h2 className="text-h2 text-text-primary mb-2">
               <GradientText>Actions</GradientText>
             </h2>
             <p className="text-body text-text-tertiary mb-8">Every button has weight and purpose.</p>
-          </StaggerItem>
-          <StaggerItem>
+          </ScrollReveal>
+          <ScrollReveal delay={0.1}>
             <div className="flex flex-wrap gap-4 items-center mb-6">
-              <Button variant="primary">Primary Gold</Button>
-              <Button variant="kill">Kill It</Button>
-              <Button variant="secondary">Secondary</Button>
-              <Button variant="ghost">Ghost</Button>
+              <MagneticButton><Button variant="primary">Primary Gold</Button></MagneticButton>
+              <MagneticButton><Button variant="kill">Kill It</Button></MagneticButton>
+              <MagneticButton><Button variant="secondary">Secondary</Button></MagneticButton>
+              <MagneticButton><Button variant="ghost">Ghost</Button></MagneticButton>
               <Button variant="primary" disabled>Disabled</Button>
             </div>
-          </StaggerItem>
-          <StaggerItem>
+          </ScrollReveal>
+          <ScrollReveal delay={0.2}>
             <div className="flex flex-wrap gap-4 items-center">
-              <StarBorder color="#F5C518" speed="5s">
-                <span className="text-sm font-semibold">Star Border CTA</span>
-              </StarBorder>
-              <StarBorder color="#E84142" speed="4s">
-                <span className="text-sm font-bold uppercase tracking-[0.1em] text-kill">Cancel Now</span>
-              </StarBorder>
-              <StarBorder color="#34D399" speed="6s">
-                <span className="text-sm font-semibold text-success">Saved!</span>
-              </StarBorder>
+              <MagneticButton strength={0.25}>
+                <StarBorder color="#F5C518" speed="5s">
+                  <span className="text-sm font-semibold">Star Border CTA</span>
+                </StarBorder>
+              </MagneticButton>
+              <MagneticButton strength={0.25}>
+                <StarBorder color="#E84142" speed="4s">
+                  <span className="text-sm font-bold uppercase tracking-[0.1em] text-kill">Cancel Now</span>
+                </StarBorder>
+              </MagneticButton>
+              <MagneticButton strength={0.25}>
+                <StarBorder color="#34D399" speed="6s">
+                  <span className="text-sm font-semibold text-success">Saved!</span>
+                </StarBorder>
+              </MagneticButton>
             </div>
-          </StaggerItem>
-        </StaggerContainer>
+          </ScrollReveal>
+        </section>
 
         {/* ═══════════════════════════════════════════════════════════
-            SURFACES — Depth system with premium glass
+            SURFACES — Depth system with beams
            ═══════════════════════════════════════════════════════════ */}
-        <StaggerContainer className="mb-20">
-          <StaggerItem>
+        <section className="mb-20">
+          <ScrollReveal>
             <h2 className="text-h2 text-text-primary mb-2">
               <GradientText>Surfaces</GradientText>
             </h2>
             <p className="text-body text-text-tertiary mb-8">Layered depth with interactive spotlight.</p>
-          </StaggerItem>
-          <StaggerItem>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          </ScrollReveal>
+          <ScrollRevealGroup className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4" stagger={0.1}>
+            <ScrollRevealItem>
               <SpotlightCard className="p-6">
                 <h3 className="text-h3 text-text-primary mb-2">Spotlight</h3>
                 <p className="text-sm text-text-secondary">Gold spotlight tracks your cursor on hover.</p>
               </SpotlightCard>
+            </ScrollRevealItem>
+            <ScrollRevealItem>
               <SpotlightCard className="p-6" spotlightColor="rgba(129, 140, 248, 0.12)">
                 <h3 className="text-h3 text-text-primary mb-2">Info</h3>
                 <p className="text-sm text-text-secondary">Custom spotlight colors for different contexts.</p>
               </SpotlightCard>
+            </ScrollRevealItem>
+            <ScrollRevealItem>
               <div className="glass-premium rounded-radius-lg p-6">
                 <h3 className="text-h3 text-text-primary mb-2">Premium Glass</h3>
                 <p className="text-sm text-text-secondary">Enhanced frosted glass with inset highlight edge.</p>
               </div>
+            </ScrollRevealItem>
+            <ScrollRevealItem>
               <CornerBracketCard className="tech-grid">
                 <h3 className="text-h3 text-text-primary mb-2">HUD Frame</h3>
                 <p className="text-sm text-text-secondary">Corner brackets with tech grid texture.</p>
               </CornerBracketCard>
-            </div>
-          </StaggerItem>
-        </StaggerContainer>
+            </ScrollRevealItem>
+          </ScrollRevealGroup>
+        </section>
 
         {/* ═══════════════════════════════════════════════════════════
             TYPOGRAPHY
            ═══════════════════════════════════════════════════════════ */}
-        <StaggerContainer className="mb-20">
-          <StaggerItem>
+        <section className="mb-20">
+          <ScrollReveal>
             <h2 className="text-h2 text-text-primary mb-2">
               <GradientText>Typography</GradientText>
             </h2>
             <p className="text-body text-text-tertiary mb-8">Every word makes an entrance.</p>
-          </StaggerItem>
-          <StaggerItem>
+          </ScrollReveal>
+          <ScrollReveal delay={0.1} variant="scale">
             <SpotlightCard className="p-8">
               <div className="space-y-6">
                 <p className="text-display">
@@ -308,21 +351,21 @@ export default function Home() {
                 </div>
               </div>
             </SpotlightCard>
-          </StaggerItem>
-        </StaggerContainer>
+          </ScrollReveal>
+        </section>
 
         {/* ═══════════════════════════════════════════════════════════
-            TEXT EFFECTS — FlipWords + Decrypted + Shiny
+            TEXT EFFECTS — FlipWords + Decrypted + TextGenerate
            ═══════════════════════════════════════════════════════════ */}
-        <StaggerContainer className="mb-20">
-          <StaggerItem>
+        <section className="mb-20">
+          <ScrollReveal>
             <h2 className="text-h2 text-text-primary mb-2">
               <GradientText>Text Effects</GradientText>
             </h2>
             <p className="text-body text-text-tertiary mb-8">Interactive text that feels alive.</p>
-          </StaggerItem>
-          <StaggerItem>
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+          </ScrollReveal>
+          <ScrollRevealGroup className="grid grid-cols-1 gap-5 sm:grid-cols-2" stagger={0.12}>
+            <ScrollRevealItem>
               <SpotlightCard className="p-6">
                 <p className="text-xs text-text-tertiary uppercase tracking-[0.1em] mb-3">Flip Words</p>
                 <p className="text-h2 text-text-primary font-semibold">
@@ -332,6 +375,19 @@ export default function Home() {
                   </span>
                 </p>
               </SpotlightCard>
+            </ScrollRevealItem>
+            <ScrollRevealItem>
+              <SpotlightCard className="p-6">
+                <p className="text-xs text-text-tertiary uppercase tracking-[0.1em] mb-3">Text Generate</p>
+                <TextGenerateEffect
+                  words="Agent deployed. Scanning for threats..."
+                  className="text-h2 text-accent-primary font-semibold"
+                  duration={0.4}
+                  staggerDelay={0.08}
+                />
+              </SpotlightCard>
+            </ScrollRevealItem>
+            <ScrollRevealItem>
               <SpotlightCard className="p-6">
                 <p className="text-xs text-text-tertiary uppercase tracking-[0.1em] mb-3">Decrypted Text (hover)</p>
                 <DecryptedText
@@ -345,8 +401,10 @@ export default function Home() {
                   revealDirection="start"
                 />
               </SpotlightCard>
+            </ScrollRevealItem>
+            <ScrollRevealItem>
               <SpotlightCard className="p-6">
-                <p className="text-xs text-text-tertiary uppercase tracking-[0.1em] mb-3">Shiny Text</p>
+                <p className="text-xs text-text-tertiary uppercase tracking-[0.1em] mb-3">Shiny + Gradient</p>
                 <ShinyText
                   text="Your money. Your rules."
                   speed={2}
@@ -355,27 +413,21 @@ export default function Home() {
                   className="text-h2 font-semibold"
                 />
               </SpotlightCard>
-              <SpotlightCard className="p-6">
-                <p className="text-xs text-text-tertiary uppercase tracking-[0.1em] mb-3">Gradient Text</p>
-                <p className="text-h2 font-semibold">
-                  <GradientText>Financial defense, automated.</GradientText>
-                </p>
-              </SpotlightCard>
-            </div>
-          </StaggerItem>
-        </StaggerContainer>
+            </ScrollRevealItem>
+          </ScrollRevealGroup>
+        </section>
 
         {/* ═══════════════════════════════════════════════════════════
-            SEMANTIC COLORS + GLOW SYSTEM (combined)
+            SEMANTIC COLORS + GLOW SYSTEM
            ═══════════════════════════════════════════════════════════ */}
-        <StaggerContainer className="mb-20">
-          <StaggerItem>
+        <section className="mb-20">
+          <ScrollReveal>
             <h2 className="text-h2 text-text-primary mb-2">
               <GradientText>Status & Glow</GradientText>
             </h2>
             <p className="text-body text-text-tertiary mb-8">Semantic indicators with animated luminance.</p>
-          </StaggerItem>
-          <StaggerItem>
+          </ScrollReveal>
+          <ScrollReveal delay={0.1}>
             <div className="flex flex-wrap gap-4 mb-8">
               {[
                 { name: "Kill", bg: "bg-kill-bg", text: "text-kill", dot: "bg-kill text-kill" },
@@ -390,8 +442,8 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          </StaggerItem>
-          <StaggerItem>
+          </ScrollReveal>
+          <ScrollReveal delay={0.2}>
             <div className="flex flex-wrap gap-6">
               <div className="glow-gold surface-card rounded-radius-lg p-6">
                 <p className="text-sm text-text-primary">Resting</p>
@@ -406,8 +458,8 @@ export default function Home() {
                 <p className="text-sm text-text-primary">Focus</p>
               </div>
             </div>
-          </StaggerItem>
-        </StaggerContainer>
+          </ScrollReveal>
+        </section>
 
       </div>
     </div>

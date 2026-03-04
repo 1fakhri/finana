@@ -855,3 +855,74 @@ body {
     inset 0 1px 0 rgba(255, 255, 255, 0.1),
     inset 0 -1px 0 rgba(255, 255, 255, 0.02);
 }
+
+/* ============================================================
+   Meteors — Diagonal Streak Animation
+   ============================================================ */
+
+.meteor {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(245, 197, 24, 0.6),
+    rgba(245, 197, 24, 0)
+  );
+  border-radius: 999px;
+  box-shadow: 0 0 4px rgba(245, 197, 24, 0.3);
+  animation: meteor-fall linear infinite;
+}
+
+.meteor::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: inherit;
+  background: linear-gradient(
+    90deg,
+    rgba(245, 197, 24, 0.3),
+    transparent
+  );
+}
+
+@keyframes meteor-fall {
+  0% {
+    transform: rotate(215deg) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(215deg) translateX(-500px);
+    opacity: 0;
+  }
+}
+
+/* ============================================================
+   Background Beams — Animated SVG Light Rays
+   ============================================================ */
+
+.beam {
+  opacity: 0;
+  animation: beam-sweep 6s ease-in-out infinite;
+}
+
+.beam--1 { animation-delay: 0s; }
+.beam--2 { animation-delay: 1.2s; }
+.beam--3 { animation-delay: 2.4s; }
+.beam--4 { animation-delay: 3.6s; }
+.beam--5 { animation-delay: 0.8s; }
+.beam--6 { animation-delay: 2s; }
+.beam--7 { animation-delay: 4s; }
+
+@keyframes beam-sweep {
+  0% { opacity: 0; stroke-dashoffset: 1000; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; stroke-dashoffset: -1000; }
+}
