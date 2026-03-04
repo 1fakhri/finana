@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <div className="page-background safe-all">
-      <div className="relative z-10 mx-auto max-w-[1320px] px-4 py-12">
+      <div className="relative z-10 mx-auto max-w-[1320px] px-4 py-12 pb-20 lg:pb-12">
         {/* Hero */}
         <div className="stagger-in mb-12 text-center">
           <h1 className="text-display text-accent-primary mb-2">Finana</h1>
