@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { motion } from "framer-motion";
-import { Phone, Shield, Zap, TrendingDown } from "lucide-react";
+import { Shield, Zap, TrendingDown, AlertTriangle, DollarSign, Eye, Ban } from "lucide-react";
 
 import { Button } from "@/components/Button";
 import { CallButton } from "@/components/CallButton";
@@ -12,7 +12,6 @@ import { FloatingParticles } from "@/components/FloatingParticles";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { fadeIn, scaleIn, safeVariants } from "@/lib/motion";
 
-// React Bits components
 import { Aurora } from "@/components/ui/Aurora";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { ShinyText } from "@/components/ui/ShinyText";
@@ -20,6 +19,22 @@ import { DecryptedText } from "@/components/ui/DecryptedText";
 import { BlurText } from "@/components/ui/BlurText";
 import { StarBorder } from "@/components/ui/StarBorder";
 import { CountUp } from "@/components/ui/CountUp";
+import { FlipWords } from "@/components/ui/FlipWords";
+import { Marquee, MarqueeItem } from "@/components/ui/Marquee";
+import { CornerBracketCard } from "@/components/ui/CornerBracketCard";
+
+const FLIP_WORDS = ["subscriptions", "dark patterns", "hidden fees", "guilt trips", "auto-renewals"];
+
+const TICKER_ITEMS = [
+  { icon: AlertTriangle, text: "HIDDEN FEE DETECTED", color: "text-kill" },
+  { icon: DollarSign, text: "$47.82 SAVED", color: "text-success" },
+  { icon: Eye, text: "DARK PATTERN BLOCKED", color: "text-accent-primary" },
+  { icon: Ban, text: "AUTO-RENEWAL KILLED", color: "text-kill" },
+  { icon: DollarSign, text: "$12.99/MO RECOVERED", color: "text-success" },
+  { icon: AlertTriangle, text: "GUILT TRIP NEUTRALIZED", color: "text-accent-primary" },
+  { icon: Ban, text: "RETENTION FLOW BYPASSED", color: "text-warning" },
+  { icon: DollarSign, text: "$299/YR SUBSCRIPTION CANCELLED", color: "text-success" },
+];
 
 export default function Home() {
   const reducedMotion = useReducedMotion();
@@ -31,7 +46,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="page-background safe-all">
+    <div className="page-background film-grain safe-all">
       {/* Aurora WebGL Background */}
       <div className="aurora-container">
         <Aurora
@@ -47,10 +62,9 @@ export default function Home() {
       <div className="relative z-10 mx-auto max-w-[1320px] px-4 py-12 pb-24 lg:pb-12">
 
         {/* ═══════════════════════════════════════════════════════════
-            HERO SECTION — Cinematic entrance
+            HERO SECTION
            ═══════════════════════════════════════════════════════════ */}
-        <section className="relative mb-24 flex flex-col items-center text-center pt-8">
-          {/* Overline */}
+        <section className="relative mb-16 flex flex-col items-center text-center pt-8">
           <motion.div
             variants={safeVariants(fadeIn, reducedMotion)}
             initial="hidden"
@@ -68,7 +82,6 @@ export default function Home() {
             />
           </motion.div>
 
-          {/* Hero Title */}
           <motion.div
             variants={safeVariants(scaleIn, reducedMotion)}
             initial="hidden"
@@ -85,18 +98,21 @@ export default function Home() {
             </h1>
           </motion.div>
 
-          {/* Subtitle with blur entrance */}
-          <div className="mb-10 max-w-lg">
-            <BlurText
-              text="Your AI agent that fights toxic subscription patterns, cancels what you forgot, and guards your money with attitude."
-              delay={30}
-              animateBy="words"
-              direction="bottom"
-              className="text-body text-text-secondary justify-center"
-            />
-          </div>
+          {/* Subtitle with FlipWords */}
+          <motion.div
+            variants={safeVariants(fadeIn, reducedMotion)}
+            initial="hidden"
+            animate="visible"
+            className="mb-10 max-w-xl"
+          >
+            <p className="text-body text-text-secondary">
+              Your AI agent that protects you from{" "}
+              <span className="text-accent-primary font-semibold">
+                <FlipWords words={FLIP_WORDS} interval={2400} />
+              </span>
+            </p>
+          </motion.div>
 
-          {/* CTA — Golden Orb */}
           <motion.div
             variants={safeVariants(scaleIn, reducedMotion)}
             initial="hidden"
@@ -107,7 +123,24 @@ export default function Home() {
         </section>
 
         {/* ═══════════════════════════════════════════════════════════
-            STATS SECTION — Animated financial numbers
+            MARQUEE TICKER — Live agent activity feed
+           ═══════════════════════════════════════════════════════════ */}
+        <div className="mb-20 -mx-4 border-y border-white/[0.04] bg-bg-surface/50 py-3">
+          <Marquee duration={40}>
+            {TICKER_ITEMS.map((item, i) => (
+              <MarqueeItem key={i} className="gap-2">
+                <item.icon className={`h-3.5 w-3.5 ${item.color}`} strokeWidth={2} />
+                <span className={`text-xs font-bold uppercase tracking-[0.08em] ${item.color}`}>
+                  {item.text}
+                </span>
+                <span className="text-text-tertiary mx-4">•</span>
+              </MarqueeItem>
+            ))}
+          </Marquee>
+        </div>
+
+        {/* ═══════════════════════════════════════════════════════════
+            STATS — CountUp in corner bracket cards
            ═══════════════════════════════════════════════════════════ */}
         <StaggerContainer className="mb-20">
           <StaggerItem>
@@ -119,7 +152,7 @@ export default function Home() {
                 { label: "Money Saved", prefix: "$", value: 3200000, suffix: "+", color: "text-accent-soft" },
               ].map((stat) => (
                 <SpotlightCard key={stat.label} className="p-5 text-center">
-                  <p className={`text-h1 tabular-nums font-bold ${stat.color}`}>
+                  <p className={`text-h1 tabular-nums font-bold font-mono ${stat.color}`}>
                     {stat.prefix}
                     <CountUp to={stat.value} separator="," duration={2.5} />
                     {stat.suffix}
@@ -132,7 +165,7 @@ export default function Home() {
         </StaggerContainer>
 
         {/* ═══════════════════════════════════════════════════════════
-            FEATURE CARDS — Spotlight cards with icons
+            FEATURE CARDS — HUD corner bracket aesthetic
            ═══════════════════════════════════════════════════════════ */}
         <StaggerContainer className="mb-20">
           <StaggerItem>
@@ -148,26 +181,29 @@ export default function Home() {
                   icon: Shield,
                   title: "Detect",
                   desc: "AI scans your subscriptions and identifies dark patterns — hidden fees, forced renewals, guilt trips.",
-                  glow: "rgba(245, 197, 24, 0.15)",
+                  num: "01",
                 },
                 {
                   icon: Zap,
                   title: "Neutralize",
                   desc: "One-tap cancellation agent navigates retention flows, dodges offers, and completes the kill.",
-                  glow: "rgba(232, 65, 66, 0.15)",
+                  num: "02",
                 },
                 {
                   icon: TrendingDown,
                   title: "Defend",
                   desc: "Continuous monitoring alerts you to new charges, price hikes, and sneaky re-enrollments.",
-                  glow: "rgba(52, 211, 153, 0.15)",
+                  num: "03",
                 },
               ].map((feature) => (
-                <SpotlightCard key={feature.title} className="p-6" spotlightColor={feature.glow}>
-                  <feature.icon className="h-8 w-8 text-accent-primary mb-4" strokeWidth={1.5} />
+                <CornerBracketCard key={feature.title}>
+                  <div className="flex items-start justify-between mb-4">
+                    <feature.icon className="h-8 w-8 text-accent-primary" strokeWidth={1.5} />
+                    <span className="text-mono text-text-tertiary text-xs">{feature.num}</span>
+                  </div>
                   <h3 className="text-h3 text-text-primary mb-2">{feature.title}</h3>
                   <p className="text-sm text-text-secondary">{feature.desc}</p>
-                </SpotlightCard>
+                </CornerBracketCard>
               ))}
             </div>
           </StaggerItem>
@@ -208,7 +244,7 @@ export default function Home() {
         </StaggerContainer>
 
         {/* ═══════════════════════════════════════════════════════════
-            SURFACES — Depth system with spotlight interaction
+            SURFACES — Depth system with premium glass
            ═══════════════════════════════════════════════════════════ */}
         <StaggerContainer className="mb-20">
           <StaggerItem>
@@ -220,27 +256,27 @@ export default function Home() {
           <StaggerItem>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <SpotlightCard className="p-6">
-                <h3 className="text-h3 text-text-primary mb-2">Card</h3>
-                <p className="text-sm text-text-secondary">Hover to reveal the gold spotlight tracking your cursor.</p>
+                <h3 className="text-h3 text-text-primary mb-2">Spotlight</h3>
+                <p className="text-sm text-text-secondary">Gold spotlight tracks your cursor on hover.</p>
               </SpotlightCard>
               <SpotlightCard className="p-6" spotlightColor="rgba(129, 140, 248, 0.12)">
                 <h3 className="text-h3 text-text-primary mb-2">Info</h3>
                 <p className="text-sm text-text-secondary">Custom spotlight colors for different contexts.</p>
               </SpotlightCard>
-              <SpotlightCard className="p-6" spotlightColor="rgba(232, 65, 66, 0.12)">
-                <h3 className="text-h3 text-text-primary mb-2">Danger</h3>
-                <p className="text-sm text-text-secondary">Red spotlight for destructive or warning contexts.</p>
-              </SpotlightCard>
-              <div className="glass rounded-radius-lg p-6">
-                <h3 className="text-h3 text-text-primary mb-2">Glass</h3>
-                <p className="text-sm text-text-secondary">Frosted backdrop blur overlay surface.</p>
+              <div className="glass-premium rounded-radius-lg p-6">
+                <h3 className="text-h3 text-text-primary mb-2">Premium Glass</h3>
+                <p className="text-sm text-text-secondary">Enhanced frosted glass with inset highlight edge.</p>
               </div>
+              <CornerBracketCard className="tech-grid">
+                <h3 className="text-h3 text-text-primary mb-2">HUD Frame</h3>
+                <p className="text-sm text-text-secondary">Corner brackets with tech grid texture.</p>
+              </CornerBracketCard>
             </div>
           </StaggerItem>
         </StaggerContainer>
 
         {/* ═══════════════════════════════════════════════════════════
-            TYPOGRAPHY — Blur text entrances + gradient headings
+            TYPOGRAPHY
            ═══════════════════════════════════════════════════════════ */}
         <StaggerContainer className="mb-20">
           <StaggerItem>
@@ -252,11 +288,9 @@ export default function Home() {
           <StaggerItem>
             <SpotlightCard className="p-8">
               <div className="space-y-6">
-                <div>
-                  <p className="text-display">
-                    <ShinyText text="Display — 56px" speed={4} color="#EAECF0" shineColor="#F5C518" className="text-display" />
-                  </p>
-                </div>
+                <p className="text-display">
+                  <ShinyText text="Display — 56px" speed={4} color="#EAECF0" shineColor="#F5C518" className="text-display" />
+                </p>
                 <BlurText text="Heading 1 — Blur entrance" delay={60} className="text-h1 text-text-primary" />
                 <p className="text-h2 text-text-primary">
                   <GradientText>Heading 2 — Gradient</GradientText>
@@ -268,7 +302,7 @@ export default function Home() {
                 <p className="text-mono text-text-secondary">Mono — 12px — $1,234.56</p>
                 <div className="flex items-baseline gap-2">
                   <span className="text-xs text-text-tertiary uppercase tracking-[0.1em]">Savings:</span>
-                  <span className="text-h1 tabular-nums text-accent-primary">
+                  <span className="text-h1 tabular-nums text-accent-primary font-mono">
                     $<CountUp to={12345.67} from={0} separator="," duration={3} />
                   </span>
                 </div>
@@ -278,7 +312,7 @@ export default function Home() {
         </StaggerContainer>
 
         {/* ═══════════════════════════════════════════════════════════
-            TEXT EFFECTS — Decrypted + Shiny demonstrations
+            TEXT EFFECTS — FlipWords + Decrypted + Shiny
            ═══════════════════════════════════════════════════════════ */}
         <StaggerContainer className="mb-20">
           <StaggerItem>
@@ -290,6 +324,15 @@ export default function Home() {
           <StaggerItem>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <SpotlightCard className="p-6">
+                <p className="text-xs text-text-tertiary uppercase tracking-[0.1em] mb-3">Flip Words</p>
+                <p className="text-h2 text-text-primary font-semibold">
+                  Protecting you from{" "}
+                  <span className="text-accent-primary">
+                    <FlipWords words={["fraud", "dark patterns", "hidden fees", "guilt trips"]} interval={2200} />
+                  </span>
+                </p>
+              </SpotlightCard>
+              <SpotlightCard className="p-6">
                 <p className="text-xs text-text-tertiary uppercase tracking-[0.1em] mb-3">Decrypted Text (hover)</p>
                 <DecryptedText
                   text="3 dark patterns detected"
@@ -300,18 +343,6 @@ export default function Home() {
                   animateOn="hover"
                   sequential
                   revealDirection="start"
-                />
-              </SpotlightCard>
-              <SpotlightCard className="p-6">
-                <p className="text-xs text-text-tertiary uppercase tracking-[0.1em] mb-3">Decrypted Text (on view)</p>
-                <DecryptedText
-                  text="$2,400 wasted annually"
-                  speed={60}
-                  className="text-h2 text-accent-primary font-semibold"
-                  encryptedClassName="text-h2 text-text-tertiary font-semibold"
-                  animateOn="view"
-                  sequential
-                  revealDirection="center"
                 />
               </SpotlightCard>
               <SpotlightCard className="p-6">
@@ -335,17 +366,17 @@ export default function Home() {
         </StaggerContainer>
 
         {/* ═══════════════════════════════════════════════════════════
-            SEMANTIC COLORS — Pulse dots with context
+            SEMANTIC COLORS + GLOW SYSTEM (combined)
            ═══════════════════════════════════════════════════════════ */}
         <StaggerContainer className="mb-20">
           <StaggerItem>
             <h2 className="text-h2 text-text-primary mb-2">
-              <GradientText>Semantic Colors</GradientText>
+              <GradientText>Status & Glow</GradientText>
             </h2>
-            <p className="text-body text-text-tertiary mb-8">Status indicators with pulsing life.</p>
+            <p className="text-body text-text-tertiary mb-8">Semantic indicators with animated luminance.</p>
           </StaggerItem>
           <StaggerItem>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 mb-8">
               {[
                 { name: "Kill", bg: "bg-kill-bg", text: "text-kill", dot: "bg-kill text-kill" },
                 { name: "Success", bg: "bg-success-bg", text: "text-success", dot: "bg-success text-success" },
@@ -360,28 +391,19 @@ export default function Home() {
               ))}
             </div>
           </StaggerItem>
-        </StaggerContainer>
-
-        {/* ═══════════════════════════════════════════════════════════
-            GLOW EFFECTS
-           ═══════════════════════════════════════════════════════════ */}
-        <StaggerContainer className="mb-16">
-          <StaggerItem>
-            <h2 className="text-h2 text-text-primary mb-2">
-              <GradientText>Glow System</GradientText>
-            </h2>
-            <p className="text-body text-text-tertiary mb-8">Layered gold luminance.</p>
-          </StaggerItem>
           <StaggerItem>
             <div className="flex flex-wrap gap-6">
               <div className="glow-gold surface-card rounded-radius-lg p-6">
-                <p className="text-sm text-text-primary">Resting Glow</p>
+                <p className="text-sm text-text-primary">Resting</p>
               </div>
-              <div className="glow-gold-hover surface-card rounded-radius-lg p-6">
-                <p className="text-sm text-text-primary">Hover Glow</p>
+              <div className="glow-pulse surface-card rounded-radius-lg p-6">
+                <p className="text-sm text-text-primary">Scanning</p>
+              </div>
+              <div className="glow-pulse-kill surface-card rounded-radius-lg p-6">
+                <p className="text-sm text-text-primary">Alert</p>
               </div>
               <div className="glow-gold-focus surface-card rounded-radius-lg p-6">
-                <p className="text-sm text-text-primary">Focus Glow</p>
+                <p className="text-sm text-text-primary">Focus</p>
               </div>
             </div>
           </StaggerItem>
