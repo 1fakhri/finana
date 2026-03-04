@@ -399,3 +399,318 @@ body {
   padding-bottom: env(safe-area-inset-bottom);
   padding-left: env(safe-area-inset-left);
 }
+
+/* ============================================================
+   Call Button — Golden Orb CTA (10x Design System)
+   ============================================================ */
+
+.call-button-orb {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 0;
+  z-index: 1;
+}
+
+.call-button-border {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: conic-gradient(
+    from 0deg,
+    var(--color-accent-primary),
+    var(--color-accent-warm),
+    var(--color-accent-soft),
+    var(--color-accent-primary)
+  );
+  z-index: 0;
+}
+
+.call-button-border--animated {
+  animation: call-rotate 3s linear infinite;
+}
+
+@keyframes call-rotate {
+  to { transform: rotate(360deg); }
+}
+
+.call-button-face {
+  position: absolute;
+  inset: 3px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-warm));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  box-shadow: 0 4px 20px rgba(245, 197, 24, 0.3);
+}
+
+/* Pulsing ring layers */
+.call-button-ring {
+  position: absolute;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(245, 197, 24, 0.25);
+  animation: call-pulse 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+}
+
+.call-button-ring--1 {
+  width: 104px;
+  height: 104px;
+  animation-delay: 0s;
+}
+
+.call-button-ring--2 {
+  width: 128px;
+  height: 128px;
+  animation-delay: 0.4s;
+}
+
+.call-button-ring--3 {
+  width: 152px;
+  height: 152px;
+  animation-delay: 0.8s;
+}
+
+@keyframes call-pulse {
+  0% {
+    opacity: 0.6;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.2;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(0.95);
+  }
+}
+
+/* ============================================================
+   Spotlight — Mouse-Following Gold Glow (10x Design System)
+   ============================================================ */
+
+.spotlight-container {
+  position: relative;
+}
+
+.spotlight-effect {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(245, 197, 24, 0.06) 0%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.spotlight-container:hover .spotlight-effect,
+.spotlight-effect--active {
+  opacity: 1;
+}
+
+/* ============================================================
+   Gradient Text — Animated Gold Gradient (10x Design System)
+   ============================================================ */
+
+.gradient-text {
+  background: linear-gradient(
+    90deg,
+    var(--color-accent-primary) 0%,
+    var(--color-accent-soft) 25%,
+    var(--color-accent-cream) 50%,
+    var(--color-accent-soft) 75%,
+    var(--color-accent-primary) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text--animated {
+  animation: gradient-shift 4s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ============================================================
+   Shimmer Effect — Button Shine (10x Design System)
+   ============================================================ */
+
+.shimmer-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-effect::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.2) 45%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.2) 55%,
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  animation: shimmer-sweep 3s ease-in-out infinite;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+@keyframes shimmer-sweep {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ============================================================
+   Interactive Card — 3D Tilt + Glow (10x Design System)
+   ============================================================ */
+
+.interactive-card {
+  --card-glow-x: 50%;
+  --card-glow-y: 50%;
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 800px;
+}
+
+.interactive-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    300px circle at var(--card-glow-x) var(--card-glow-y),
+    rgba(245, 197, 24, 0.08) 0%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.interactive-card:hover::before {
+  opacity: 1;
+}
+
+/* ============================================================
+   Floating Particles (10x Design System)
+   ============================================================ */
+
+.particles-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 9999px;
+  background: var(--color-accent-primary);
+  opacity: 0;
+  animation: particle-float var(--particle-duration, 8s) var(--particle-delay, 0s) ease-in-out infinite;
+}
+
+@keyframes particle-float {
+  0% {
+    opacity: 0;
+    transform: translateY(0) translateX(0);
+  }
+  15% {
+    opacity: var(--particle-opacity, 0.4);
+  }
+  85% {
+    opacity: var(--particle-opacity, 0.4);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-120px) translateX(var(--particle-drift, 20px));
+  }
+}
+
+/* ============================================================
+   Semantic Color Pulse Dots (10x Design System)
+   ============================================================ */
+
+.pulse-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  animation: dot-pulse 2s ease-in-out infinite;
+}
+
+@keyframes dot-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 currentColor;
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 8px 2px currentColor;
+  }
+}
+
+/* ============================================================
+   Star Border Animations (React Bits)
+   ============================================================ */
+
+@keyframes star-movement-bottom {
+  0% { transform: translate(0%, 0%); opacity: 1; }
+  100% { transform: translate(-100%, 0%); opacity: 0; }
+}
+
+@keyframes star-movement-top {
+  0% { transform: translate(0%, 0%); opacity: 1; }
+  100% { transform: translate(100%, 0%); opacity: 0; }
+}
+
+.animate-star-movement-bottom {
+  animation: star-movement-bottom linear infinite alternate;
+}
+
+.animate-star-movement-top {
+  animation: star-movement-top linear infinite alternate;
+}
+
+/* ============================================================
+   Aurora Container
+   ============================================================ */
+
+.aurora-container {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.aurora-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
