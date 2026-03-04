@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Plus_Jakarta_Sans, IBM_Plex_Mono } from "next/font/google";
 import { InstallPrompt } from "@/components/InstallPrompt";
+import { BottomNav } from "@/components/BottomNav";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
@@ -49,6 +50,7 @@ export default function RootLayout({
         className={`${bricolage.variable} ${jakarta.variable} ${ibmPlexMono.variable} font-sans antialiased`}
       >
         {children}
+        <BottomNav />
         <InstallPrompt />
       </body>
     </html>
