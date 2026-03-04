@@ -1,6 +1,9 @@
 "use client";
 
 import { type ButtonHTMLAttributes, forwardRef } from "react";
+import { motion, type HTMLMotionProps } from "framer-motion";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { springTransition } from "@/lib/motion";
 
 type ButtonVariant = "primary" | "kill" | "secondary" | "ghost";
 type ButtonSize = "default" | "sm" | "lg";
@@ -15,19 +18,13 @@ const variantClasses: Record<ButtonVariant, string> = {
     "bg-gradient-to-br from-accent-primary to-accent-warm",
     "text-bg-void font-semibold",
     "shadow-[0_2px_8px_rgba(245,197,24,0.15),0_0_0_1px_rgba(245,197,24,0.1)]",
-    "hover:shadow-[0_4px_20px_rgba(245,197,24,0.25),0_0_0_1px_rgba(245,197,24,0.2),0_0_60px_rgba(245,197,24,0.06)]",
-    "hover:-translate-y-px",
-    "active:translate-y-0 active:scale-[0.98]",
-    "active:shadow-[0_1px_4px_rgba(245,197,24,0.2)]",
+    "shimmer-effect",
   ].join(" "),
 
   kill: [
     "bg-gradient-to-br from-kill to-[#C73435]",
     "text-white font-bold uppercase tracking-[0.1em]",
     "shadow-[0_2px_8px_rgba(232,65,66,0.15)]",
-    "hover:shadow-[0_4px_24px_rgba(232,65,66,0.3),0_0_0_1px_rgba(232,65,66,0.2)]",
-    "hover:-translate-y-px",
-    "active:translate-y-0 active:scale-[0.98]",
   ].join(" "),
 
   secondary: [
@@ -52,25 +49,42 @@ const sizeClasses: Record<ButtonSize, string> = {
   lg: "px-8 py-3.5 text-sm rounded-radius-md min-h-[48px]",
 };
 
+// Variants that get hover/tap spring effects
+const springVariants = new Set<ButtonVariant>(["primary", "kill"]);
+
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant = "primary", size = "default", className = "", children, ...props }, ref) => {
+  ({ variant = "primary", size = "default", className = "", children, disabled, ...props }, ref) => {
+    const reducedMotion = useReducedMotion();
+    const hasSpring = springVariants.has(variant) && !disabled;
+
+    const motionProps: Partial<HTMLMotionProps<"button">> =
+      hasSpring && !reducedMotion
+        ? {
+            whileHover: { scale: 1.02, y: -1 },
+            whileTap: { scale: 0.97, y: 0 },
+            transition: springTransition,
+          }
+        : {};
+
     return (
-      <button
+      <motion.button
         ref={ref}
         className={[
           "inline-flex items-center justify-center gap-2",
           "cursor-pointer select-none",
-          "transition-all duration-[200ms] ease-[cubic-bezier(0.4,0,0.2,1)]",
+          "transition-shadow duration-[200ms] ease-[cubic-bezier(0.4,0,0.2,1)]",
           "disabled:opacity-50 disabled:pointer-events-none",
           "tracking-[0.02em]",
           variantClasses[variant],
           sizeClasses[size],
           className,
         ].join(" ")}
-        {...props}
+        disabled={disabled}
+        {...motionProps}
+        {...(props as HTMLMotionProps<"button">)}
       >
         {children}
-      </button>
+      </motion.button>
     );
   }
 );
