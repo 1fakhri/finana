@@ -1,5 +1,5 @@
 const CACHE_NAME = "finana-v1";
-const APP_SHELL = ["/", "/manifest.json"];
+const APP_SHELL = ["/", "/manifest.json", "/offline"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -20,6 +20,15 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
+  if (event.request.mode === "navigate") {
+    event.respondWith(
+      fetch(event.request).catch(() =>
+        caches.match("/offline").then((cached) => cached || caches.match("/"))
+      )
+    );
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then((cached) => cached || fetch(event.request))
   );
