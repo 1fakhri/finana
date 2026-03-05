@@ -319,6 +319,131 @@ export default function Home() {
         </section>
 
         {/* ═══════════════════════════════════════════════════════════
+            IMAGES — Placement & Treatment Showcase
+           ═══════════════════════════════════════════════════════════ */}
+        <section className="mb-20">
+          <ScrollReveal>
+            <h2 className="text-h2 text-text-primary mb-2">
+              <GradientText>Images</GradientText>
+            </h2>
+            <p className="text-body text-text-tertiary mb-8">How photography and media sit within the design system.</p>
+          </ScrollReveal>
+
+          {/* Hero-width image with gold gradient overlay */}
+          <ScrollReveal className="mb-6" variant="scale">
+            <div className="relative overflow-hidden rounded-radius-lg aspect-[21/9]">
+              <img
+                src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=1400&q=80"
+                alt="Abstract gold blockchain"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-bg-base via-bg-base/60 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-bg-base/80 to-transparent" />
+              <div className="absolute bottom-0 left-0 p-8">
+                <p className="text-xs text-accent-primary font-mono uppercase tracking-[0.15em] mb-2">// Featured</p>
+                <h3 className="text-h2 text-text-primary font-bold max-w-md">Full-width hero with gradient scrim</h3>
+                <p className="text-sm text-text-secondary mt-2 max-w-sm">Images fade into the dark background using layered gradients, keeping text legible.</p>
+              </div>
+            </div>
+          </ScrollReveal>
+
+          {/* 2-column: Card with image + Glass overlay card */}
+          <ScrollRevealGroup className="grid grid-cols-1 gap-5 sm:grid-cols-2 mb-6" stagger={0.12}>
+            <ScrollRevealItem>
+              <SpotlightCard className="p-0 overflow-hidden">
+                <div className="relative aspect-[4/3]">
+                  <img
+                    src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=700&q=80"
+                    alt="Stock market data"
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-bg-surface via-transparent to-transparent" />
+                </div>
+                <div className="p-5">
+                  <p className="text-xs text-text-tertiary uppercase tracking-[0.1em] mb-1">Card with Image</p>
+                  <h3 className="text-h3 text-text-primary mb-1">Spotlight card + photo</h3>
+                  <p className="text-sm text-text-secondary">Image bleeds to card edges, content below with gradient fade.</p>
+                </div>
+              </SpotlightCard>
+            </ScrollRevealItem>
+            <ScrollRevealItem>
+              <div className="relative overflow-hidden rounded-radius-lg aspect-[4/3]">
+                <img
+                  src="https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=700&q=80"
+                  alt="Gold coins"
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-bg-base/50 backdrop-blur-sm" />
+                <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
+                  <p className="text-xs text-accent-primary font-mono uppercase tracking-[0.15em] mb-3">Glass Overlay</p>
+                  <h3 className="text-h2 text-text-primary font-bold">$2,400</h3>
+                  <p className="text-sm text-text-secondary mt-2">Frosted glass over photography for data-forward layouts.</p>
+                </div>
+              </div>
+            </ScrollRevealItem>
+          </ScrollRevealGroup>
+
+          {/* 3-column: Small image cards with corner brackets */}
+          <ScrollRevealGroup className="grid grid-cols-1 gap-5 sm:grid-cols-3 mb-6" stagger={0.1}>
+            {[
+              {
+                src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&q=80",
+                alt: "Data dashboard",
+                label: "Dashboard",
+                desc: "Rounded corners + subtle border",
+              },
+              {
+                src: "https://images.unsplash.com/photo-1620321023374-d1a68fbc720d?w=500&q=80",
+                alt: "Credit card",
+                label: "Subscription",
+                desc: "HUD frame around imagery",
+              },
+              {
+                src: "https://images.unsplash.com/photo-1642790106117-e829e14a795f?w=500&q=80",
+                alt: "Crypto trading",
+                label: "Analytics",
+                desc: "Dark tint with gold accent",
+              },
+            ].map((img) => (
+              <ScrollRevealItem key={img.label}>
+                <CornerBracketCard className="p-0 overflow-hidden">
+                  <div className="relative aspect-[3/2]">
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      className="h-full w-full object-cover brightness-75"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-bg-base/90 to-transparent" />
+                    <div className="absolute bottom-0 left-0 p-4">
+                      <p className="text-xs text-accent-primary font-mono uppercase tracking-[0.1em]">{img.label}</p>
+                      <p className="text-sm text-text-secondary mt-1">{img.desc}</p>
+                    </div>
+                  </div>
+                </CornerBracketCard>
+              </ScrollRevealItem>
+            ))}
+          </ScrollRevealGroup>
+
+          {/* Avatar / circular images */}
+          <ScrollReveal delay={0.1}>
+            <p className="text-xs text-text-tertiary uppercase tracking-[0.1em] mb-4">Avatars & Thumbnails</p>
+            <div className="flex items-center gap-4">
+              {[
+                { src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80", size: "h-16 w-16" },
+                { src: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80", size: "h-12 w-12" },
+                { src: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&q=80", size: "h-10 w-10" },
+                { src: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&q=80", size: "h-8 w-8" },
+              ].map((avatar, i) => (
+                <div key={i} className={`${avatar.size} rounded-full overflow-hidden ring-2 ring-accent-primary/30 ring-offset-2 ring-offset-bg-base`}>
+                  <img src={avatar.src} alt="Avatar" className="h-full w-full object-cover" />
+                </div>
+              ))}
+              <span className="text-xs text-text-tertiary ml-2">Gold ring accent at various sizes</span>
+            </div>
+          </ScrollReveal>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════════════
             TYPOGRAPHY
            ═══════════════════════════════════════════════════════════ */}
         <section className="mb-20">
