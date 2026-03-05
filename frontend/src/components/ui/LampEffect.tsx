@@ -16,79 +16,41 @@ export function Lamp({ children, className }: LampProps) {
   return (
     <div
       className={cn(
-        "relative flex min-h-[400px] flex-col items-center justify-center overflow-hidden w-full",
+        "relative flex flex-col items-center justify-center w-full py-12",
         className
       )}
     >
-      {/* Lamp light cone */}
-      <div className="relative flex w-full flex-1 items-center justify-center isolate">
-        {/* Left beam */}
+      {/* Lamp glow — subtle gold line + radial bloom above text */}
+      <div className="relative w-full flex items-center justify-center mb-6">
+        {/* Gold line */}
         <motion.div
-          initial={reducedMotion ? { width: "15rem" } : { width: "8rem" }}
-          whileInView={reducedMotion ? {} : { width: "15rem" }}
+          initial={reducedMotion ? { width: "12rem", opacity: 1 } : { width: "0rem", opacity: 0 }}
+          whileInView={reducedMotion ? {} : { width: "12rem", opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
-          className="absolute inset-auto right-1/2 top-0 h-56 overflow-visible"
+          transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+          className="h-px"
           style={{
             background:
-              "conic-gradient(from 70deg at center top, rgba(245, 197, 24, 0.2), transparent 60%)",
-          }}
-        />
-        {/* Right beam */}
-        <motion.div
-          initial={reducedMotion ? { width: "15rem" } : { width: "8rem" }}
-          whileInView={reducedMotion ? {} : { width: "15rem" }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
-          className="absolute inset-auto left-1/2 top-0 h-56 overflow-visible"
-          style={{
-            background:
-              "conic-gradient(from 290deg at center top, transparent 40%, rgba(245, 197, 24, 0.2))",
+              "linear-gradient(90deg, transparent, rgba(245, 197, 24, 0.7), transparent)",
           }}
         />
 
-        {/* Center glow bloom */}
+        {/* Radial bloom behind line */}
         <motion.div
-          initial={reducedMotion ? { opacity: 0.5, width: "20rem" } : { opacity: 0, width: "10rem" }}
-          whileInView={reducedMotion ? {} : { opacity: 0.5, width: "20rem" }}
+          initial={reducedMotion ? { opacity: 0.4 } : { opacity: 0 }}
+          whileInView={reducedMotion ? {} : { opacity: 0.4 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3, ease: "easeInOut" }}
-          className="absolute inset-auto top-0 h-36 -translate-y-[30%] rounded-full blur-2xl"
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          className="absolute w-48 h-24 -top-8 rounded-full pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse at center, rgba(245, 197, 24, 0.3), transparent 70%)",
-          }}
-        />
-
-        {/* Top edge line */}
-        <motion.div
-          initial={reducedMotion ? { width: "15rem" } : { width: "0rem" }}
-          whileInView={reducedMotion ? {} : { width: "15rem" }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4, ease: "easeInOut" }}
-          className="absolute inset-auto top-0 h-px"
-          style={{
-            background:
-              "linear-gradient(90deg, transparent, rgba(245, 197, 24, 0.6), transparent)",
-          }}
-        />
-
-        {/* Diffused bottom glow */}
-        <motion.div
-          initial={reducedMotion ? { opacity: 0.3 } : { opacity: 0 }}
-          whileInView={reducedMotion ? {} : { opacity: 0.3 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.5, ease: "easeInOut" }}
-          className="absolute inset-auto top-12 h-48 w-full"
-          style={{
-            background:
-              "radial-gradient(ellipse 50% 50% at 50% 0%, rgba(245, 197, 24, 0.12), transparent)",
+              "radial-gradient(ellipse at center bottom, rgba(245, 197, 24, 0.15), transparent 70%)",
           }}
         />
       </div>
 
-      {/* Content below lamp */}
-      <div className="relative z-10 -mt-24">{children}</div>
+      {/* Content */}
+      <div className="relative z-10">{children}</div>
     </div>
   );
 }
