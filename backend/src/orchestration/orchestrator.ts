@@ -1,5 +1,4 @@
 import { TASK_STATUS } from "../../../shared/constants/status.js";
-import type { WebSocketEvent } from "../../../shared/types/events.js";
 import { updateTaskStatus, addTaskStep } from "./taskManager.js";
 import { broadcast } from "../ws/agentEventStream.js";
 
