@@ -77,7 +77,7 @@ const FALLBACK_POOLS: Record<string, string[]> = {
   ],
 };
 
-function getFallbackResponse(eventType: string): string {
+export function getFallbackResponse(eventType: string): string {
   const pool = FALLBACK_POOLS[eventType] || FALLBACK_POOLS.greeting;
   return pool[Math.floor(Math.random() * pool.length)];
 }
