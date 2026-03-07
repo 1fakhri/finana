@@ -1,6 +1,16 @@
 import { TASK_STATUS } from "../../../shared/constants/status.js";
 import { updateTaskStatus, addTaskStep } from "./taskManager.js";
 import { broadcast } from "../ws/agentEventStream.js";
+import { generateResponse } from "../persona/personaEngine.js";
+import type { PersonaRequestContext } from "../persona/personaEngine.js";
+
+export interface CancelContext {
+  userId: string;
+  serviceName: string;
+  monthlyCost: number;
+  monthlyIncome?: number;
+  currentBalance?: number;
+}
 
 const SIMULATED_STEPS = [
   { action: "navigate", target: "StreamMax Pro login page", thought: "Opening the target site and preparing to log in..." },
@@ -15,11 +25,54 @@ const SIMULATED_STEPS = [
   { action: "verify", target: "Cancellation confirmation page", thought: "Verifying cancellation was successful..." },
 ];
 
+// Maps step indices to persona event types
+const PERSONA_EVENTS: Record<number, string> = {
+  0: "kill_initiated",           // Starting the cancellation
+  6: "kill_update",              // Dealing with reason dropdown
+  7: "retention_offer_rejected", // Rejecting retention offer
+  8: "dark_pattern_bypassed",    // Bypassing guilt trip
+};
+
 function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export async function executeCancel(taskId: string): Promise<void> {
+async function broadcastPersona(
+  taskId: string,
+  eventType: string,
+  context: CancelContext,
+): Promise<void> {
+  try {
+    const personaContext: PersonaRequestContext = {
+      userId: context.userId,
+      serviceName: context.serviceName,
+      amount: context.monthlyCost,
+      monthlyIncome: context.monthlyIncome,
+      currentBalance: context.currentBalance,
+    };
+
+    const response = await generateResponse(
+      eventType as any,
+      personaContext,
+      "text",
+    );
+
+    broadcast(taskId, {
+      type: "persona.commentary",
+      taskId,
+      text: response.text,
+      eventType,
+      toneLevel: response.toneLevel,
+    });
+  } catch (err) {
+    console.error(`[orchestrator] Persona generation failed for ${eventType}:`, err);
+  }
+}
+
+export async function executeCancel(
+  taskId: string,
+  context?: CancelContext,
+): Promise<void> {
   updateTaskStatus(taskId, TASK_STATUS.IN_PROGRESS);
 
   broadcast(taskId, {
@@ -39,6 +92,12 @@ export async function executeCancel(taskId: string): Promise<void> {
       thought: step.thought,
     });
 
+    // Broadcast persona commentary at key steps
+    const personaEvent = PERSONA_EVENTS[i];
+    if (personaEvent && context) {
+      await broadcastPersona(taskId, personaEvent, context);
+    }
+
     await delay(400 + Math.random() * 300);
 
     addTaskStep(taskId, {
@@ -56,6 +115,11 @@ export async function executeCancel(taskId: string): Promise<void> {
   }
 
   updateTaskStatus(taskId, TASK_STATUS.COMPLETED);
+
+  // Broadcast kill_confirmed persona commentary
+  if (context) {
+    await broadcastPersona(taskId, "kill_confirmed", context);
+  }
 
   broadcast(taskId, {
     type: "task.complete",

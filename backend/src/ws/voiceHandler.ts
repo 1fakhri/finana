@@ -78,10 +78,10 @@ function handleControlMessage(
       activeSessions.set(ws, session);
       userSessions.set(userId, ws);
 
-      startSession(sessionId, { userId, mode });
-
-      sendJson(ws, { type: "session_ready", sessionId });
-      console.log(`[voice] Session started: ${sessionId} (${mode})`);
+      startSession(sessionId, { userId, mode }).then((openingLine) => {
+        sendJson(ws, { type: "session_ready", sessionId, openingLine });
+        console.log(`[voice] Session started: ${sessionId} (${mode})`);
+      });
       break;
     }
 

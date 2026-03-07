@@ -1,12 +1,13 @@
 import { Router } from "express";
 import { createTask, getTask } from "../orchestration/taskManager.js";
 import { getScreenshot } from "../orchestration/screenshotStore.js";
-import { executeCancel } from "../orchestration/orchestrator.js";
+import { executeCancel, type CancelContext } from "../orchestration/orchestrator.js";
+import { getUserProfile, getSubscriptions } from "../data/dataService.js";
 
 export const taskRouter = Router();
 
 // POST /api/tasks/cancel -- create a cancellation task
-taskRouter.post("/cancel", (req, res) => {
+taskRouter.post("/cancel", async (req, res) => {
   const { subscriptionId } = req.body;
 
   if (subscriptionId == null) {
@@ -17,8 +18,32 @@ taskRouter.post("/cancel", (req, res) => {
   try {
     const task = createTask(Number(subscriptionId));
 
+    // Build context for persona engine (best-effort, non-blocking)
+    let cancelContext: CancelContext | undefined;
+    try {
+      const userId = (req as any).userId as string;
+      const [profile, subscriptions] = await Promise.all([
+        getUserProfile(userId),
+        getSubscriptions(userId),
+      ]);
+      const sub = subscriptions.find(
+        (s: { id: number }) => s.id === Number(subscriptionId),
+      );
+      if (sub && profile) {
+        cancelContext = {
+          userId,
+          serviceName: sub.name,
+          monthlyCost: Number(sub.monthly_cost),
+          monthlyIncome: Number(profile.monthly_income),
+          currentBalance: Number(profile.account_balance),
+        };
+      }
+    } catch (err) {
+      console.warn("[tasks] Could not build cancel context for persona:", err);
+    }
+
     // Fire-and-forget: run the simulated cancellation
-    executeCancel(task.taskId).catch((err) => {
+    executeCancel(task.taskId, cancelContext).catch((err) => {
       console.error(`[tasks] Cancel execution failed for ${task.taskId}:`, err);
     });
 
