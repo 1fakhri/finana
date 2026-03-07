@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { Button } from "@/components/Button";
@@ -9,26 +9,23 @@ import { Mail, Eye, EyeOff } from "lucide-react";
 
 type AuthView = "login" | "signup" | "magic-link";
 
-const cardVariants = {
+const cardVariants: Variants = {
   hidden: { opacity: 0, y: 12 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] as const },
+  },
+  shake: {
+    x: [0, -4, 4, -2, 0],
+    transition: { duration: 0.2, ease: [0.34, 1.56, 0.64, 1] as const },
   },
 };
 
-const viewVariants = {
+const viewVariants: Variants = {
   enter: { opacity: 0 },
   center: { opacity: 1, transition: { duration: 0.25 } },
   exit: { opacity: 0, transition: { duration: 0.15 } },
-};
-
-const shakeVariants = {
-  shake: {
-    x: [0, -4, 4, -2, 0],
-    transition: { duration: 0.2, ease: [0.34, 1.56, 0.64, 1] },
-  },
 };
 
 export default function AuthPage() {
@@ -137,8 +134,7 @@ export default function AuthPage() {
         className="w-full max-w-[400px] bg-bg-surface border border-border-default rounded-radius-xl p-8"
         variants={reducedMotion ? undefined : cardVariants}
         initial="hidden"
-        animate={shaking ? "shake" : "visible"}
-        {...(shaking && !reducedMotion ? { variants: { ...cardVariants, ...shakeVariants } } : {})}
+        animate={shaking && !reducedMotion ? "shake" : "visible"}
       >
         {/* Finana Wordmark */}
         <div className="text-center mb-8">
