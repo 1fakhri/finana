@@ -3,6 +3,7 @@ import type { Request, Response, NextFunction } from "express";
 import { createServer } from "node:http";
 import cors from "cors";
 import { authMiddleware } from "./middleware/auth.js";
+import { authRouter } from "./routes/auth.js";
 import { dataRouter } from "./routes/data.js";
 import { taskRouter } from "./routes/tasks.js";
 import { setupWebSocketServer } from "./ws/wsServer.js";
@@ -31,6 +32,9 @@ app.use((req, _res, next) => {
 app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
+
+// Auth routes (auth required — user must have a valid JWT)
+app.use("/api/auth", authMiddleware, authRouter);
 
 // Data routes (auth required)
 app.use("/api/user", authMiddleware, dataRouter);
