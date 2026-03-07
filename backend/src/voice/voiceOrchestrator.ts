@@ -1,4 +1,7 @@
 import { getUserProfile, getSubscriptions } from "../data/dataService.js";
+import { generateResponse, clearSessionHistory } from "../persona/personaEngine.js";
+import { assemblePrompt } from "../persona/prompts.js";
+import { calibrateTone } from "../persona/toneCalibrator.js";
 
 interface SessionConfig {
   userId: string;
@@ -9,13 +12,49 @@ interface VoiceSessionState {
   sessionId: string;
   config: SessionConfig;
   active: boolean;
+  personaSystemPrompt: string | null;
 }
 
 const sessions = new Map<string, VoiceSessionState>();
 
-export function startSession(sessionId: string, config: SessionConfig): void {
-  sessions.set(sessionId, { sessionId, config, active: true });
+export async function startSession(sessionId: string, config: SessionConfig): Promise<string | null> {
+  // Build persona system prompt from user's financial context
+  let personaSystemPrompt: string | null = null;
+  let openingLine: string | null = null;
+
+  try {
+    const context = await getFinancialContext(config.userId);
+    if (context) {
+      const { system } = assemblePrompt(
+        {
+          eventType: "greeting",
+          monthlyIncome: Number(context.profile.monthly_income),
+          currentBalance: Number(context.profile.account_balance),
+        },
+        "voice",
+      );
+      personaSystemPrompt = system;
+
+      // Generate an opening line for the voice session
+      const response = await generateResponse(
+        "greeting",
+        {
+          userId: config.userId,
+          monthlyIncome: Number(context.profile.monthly_income),
+          currentBalance: Number(context.profile.account_balance),
+        },
+        "voice",
+      );
+      openingLine = response.text;
+    }
+  } catch (err) {
+    console.error("[voice-orchestrator] Failed to build persona context:", err);
+  }
+
+  sessions.set(sessionId, { sessionId, config, active: true, personaSystemPrompt });
   console.log(`[voice-orchestrator] Session created: ${sessionId}`);
+
+  return openingLine;
 }
 
 export function processAudio(
@@ -33,9 +72,27 @@ export function endSession(sessionId: string): void {
   const session = sessions.get(sessionId);
   if (session) {
     session.active = false;
+    clearSessionHistory(session.config.userId);
     sessions.delete(sessionId);
     console.log(`[voice-orchestrator] Session ended: ${sessionId}`);
   }
+}
+
+export function getSessionPersonaPrompt(sessionId: string): string | null {
+  return sessions.get(sessionId)?.personaSystemPrompt || null;
+}
+
+export function getToneForAmount(
+  amount: number,
+  balance: number,
+  income: number,
+): { level: number; severity: string } {
+  return calibrateTone({
+    amount,
+    accountBalance: balance,
+    monthlyIncome: income,
+    eventType: "purchase_alert",
+  });
 }
 
 export async function getFinancialContext(

@@ -30,6 +30,14 @@ export interface AgentScreenshotEvent {
   screenshot: string; // base64
 }
 
+export interface PersonaCommentaryEvent {
+  type: "persona.commentary";
+  taskId: string;
+  text: string;
+  eventType: string;
+  toneLevel: number;
+}
+
 export interface TaskCompleteEvent {
   type: "task.complete";
   taskId: string;
@@ -60,6 +68,7 @@ export type WebSocketEvent =
   | AgentActionEvent
   | AgentErrorEvent
   | AgentScreenshotEvent
+  | PersonaCommentaryEvent
   | TaskCompleteEvent
   | VoiceConnectedEvent
   | VoiceTranscriptEvent

@@ -4,6 +4,7 @@ export const EVENT_TYPES = {
   AGENT_ACTION: "agent.action",
   AGENT_ERROR: "agent.error",
   AGENT_SCREENSHOT: "agent.screenshot",
+  PERSONA_COMMENTARY: "persona.commentary",
   TASK_COMPLETE: "task.complete",
   VOICE_CONNECTED: "voice.connected",
   VOICE_TRANSCRIPT: "voice.transcript",
