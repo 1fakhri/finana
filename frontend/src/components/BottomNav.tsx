@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Trash2, Phone } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Trash2, Phone, LogOut } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 type Tab = "kill-list" | "panic-button";
 
@@ -18,6 +20,13 @@ const tabs: { id: Tab; label: string; icon: typeof Trash2 }[] = [
 export function BottomNav({ activeTab: controlledTab, onTabChange }: BottomNavProps) {
   const [internalTab, setInternalTab] = useState<Tab>("kill-list");
   const activeTab = controlledTab ?? internalTab;
+  const pathname = usePathname();
+  const { user, signOut } = useAuth();
+
+  // Hide nav on auth and offline pages, or when not logged in
+  if (!user || pathname === "/auth" || pathname === "/offline") {
+    return null;
+  }
 
   const handleTabChange = (tab: Tab) => {
     if (onTabChange) {
@@ -61,6 +70,22 @@ export function BottomNav({ activeTab: controlledTab, onTabChange }: BottomNavPr
             </button>
           );
         })}
+
+        {/* Logout button */}
+        <button
+          onClick={signOut}
+          className={[
+            "flex flex-col items-center justify-center gap-0.5 px-4 h-14",
+            "cursor-pointer transition-colors duration-[var(--duration-fast)]",
+            "text-text-tertiary hover:text-kill",
+          ].join(" ")}
+          aria-label="Log out"
+        >
+          <LogOut size={20} strokeWidth={1.5} />
+          <span className="text-[10px] font-medium tracking-[0.02em]">
+            Log Out
+          </span>
+        </button>
       </div>
     </nav>
   );
