@@ -11,6 +11,8 @@ import {
 import type { Session, User, AuthError } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase";
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+
 interface AuthState {
   user: User | null;
   session: Session | null;
@@ -69,11 +71,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signUp = useCallback(
     async (email: string, password: string, name: string) => {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: { data: { name } },
       });
+
+      if (!error && data.session) {
+        // Initialize user profile + preferences in the backend
+        try {
+          await fetch(`${API_BASE}/api/auth/init-user`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${data.session.access_token}`,
+            },
+            body: JSON.stringify({ name, email }),
+          });
+        } catch {
+          // Non-fatal — profile can be created later
+          console.warn("[auth] Failed to init user profile");
+        }
+      }
+
       return { error };
     },
     [],
